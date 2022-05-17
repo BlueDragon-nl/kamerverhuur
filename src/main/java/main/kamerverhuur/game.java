@@ -8,13 +8,33 @@ import main.kamerverhuur.model.*;
 public class game {
     private figuren[][] speelbord;
     private int max_X, max_Y;
+    private static int zetten =0;
+
+    public boolean newgame_test(figuurs figuur, int X,int Y, boolean Sides){
+        zetten =0;
+        if (X>=1 && Y>=1){
+            newgame( figuur,  X, Y,  Sides);
+            return true;
+        }
+        return false;
+    }
+
+    public static void setZetten() {
+        zetten--;
+    }
+
+    public static int getZetten() {
+        return zetten;
+    }
 
     public void newgame(figuurs figuur, int X,int Y, boolean Sides) {
+        zetten =0;
         switch (figuur){
             case driehoek: Y = Y*2;
                 speelbord = new driehoek[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
+                        zetten++;
                         if (y % 2 == 0){
                             speelbord[x][y] = new driehoek(x, y);
                         }else {
@@ -28,6 +48,7 @@ public class game {
             case hexagon: speelbord = new hexagon[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
+                        zetten++;
                         speelbord[x][y] = new hexagon(x, y);
                     }
                 }
@@ -37,6 +58,7 @@ public class game {
             default: speelbord = new vierkant[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
+                        zetten++;
                         speelbord[x][y] = new vierkant(x, y);
                     }
                 }
@@ -96,23 +118,19 @@ public class game {
         }
     }
 
-
     public Boolean Solidmove(int X, int Y, int move){
         if (max_X >= X && max_Y >= Y){
              return speelbord[X][Y].solidmove(move);
         }
         return false;
     }
-
-    public boolean algedaan_vakje1(int X, int Y, int move)
-    {
+    public boolean algedaan_vakje1(int X, int Y, int move) {
         if (Solidmove(X, Y, move)) {
                 return speelbord[X][Y].algedaan(move);
         }
         return false;
     }
-    public boolean algedaanvakje2(int X, int Y, int move)
-    {
+    public boolean algedaanvakje2(int X, int Y, int move) {
         if (Solidmove(X, Y, move)) {
                 var A = speelbord[X][Y].getvakje2(move);
                 X = X + A[0];
@@ -130,10 +148,10 @@ public class game {
         return false;
     }
 
+
     public figuren getfiguur(int X, int y){
         return speelbord[X][y];
     }
-
 }
 
 

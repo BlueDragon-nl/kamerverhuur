@@ -2,6 +2,7 @@ package main.kamerverhuur.model;
 
 import javafx.scene.layout.Pane;
 import main.kamerverhuur.Player;
+import main.kamerverhuur.game;
 
 public class hexagon implements figuren {
     public Boolean[] kant = {       false,
@@ -38,6 +39,7 @@ public class hexagon implements figuren {
     @Override
     public void move(int move, Player player) {
         if (-1 < move && move < kant.length){
+            game.setZetten();
             kant[move] = true;
         }
         boolean A = true;
