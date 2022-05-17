@@ -11,8 +11,17 @@ public class pairwaise {
         Game.newgame_test(figuurs.driehoek, 0, 5, true);
         Assertions.assertEquals(game.getZetten(), 0);
 
-        Game.newgame_test(figuurs.driehoek, 5, 0, true);
+        Game.newgame_test(figuurs.driehoek, 5, 0, false);
         Assertions.assertEquals(game.getZetten(), 0);
+
+        Game.newgame_test(figuurs.vierkant, 0, 0, false);
+        Assertions.assertEquals(game.getZetten(), 0);
+
+        Game.newgame_test(figuurs.vierkant, 5, 5, true);
+        Assertions.assertEquals(game.getZetten(), 40);
+
+        Game.newgame_test(figuurs.hexagon, 5, 5, false);
+        Assertions.assertEquals(game.getZetten(), 160);
 
 
     }

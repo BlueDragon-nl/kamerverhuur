@@ -34,34 +34,37 @@ public class game {
                 speelbord = new driehoek[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
-                        zetten++;
                         if (y % 2 == 0){
+                            zetten += 3;
                             speelbord[x][y] = new driehoek(x, y);
                         }else {
                             speelbord[x][y] = new driehoek(true, x, y);
                         }
                     }
                 }
+                zetten += X + Y;
                 if (Sides){setborder_driehoek(X, Y);}
                 break;
 
             case hexagon: speelbord = new hexagon[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
-                        zetten++;
+                        zetten += 6;
                         speelbord[x][y] = new hexagon(x, y);
                     }
                 }
+                zetten += X + Y;
                 if (Sides){setborder_Hexagon(X, Y);}
                 break;
 
             default: speelbord = new vierkant[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
-                        zetten++;
+                        zetten += 2;
                         speelbord[x][y] = new vierkant(x, y);
                     }
                 }
+                zetten += X + Y;
                 if (Sides){setborder_vierkant(X, Y);}
                 break;
         }
