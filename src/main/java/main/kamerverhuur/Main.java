@@ -20,7 +20,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         game game = new game();
-        game.newgame(figuurs.driehoek,6,2,true);
+        game.newgame(figuurs.hexagon,6,6,true);
+
         launch();
     }
 }

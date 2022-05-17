@@ -35,7 +35,7 @@ public class vierkant implements figuren {
 
     @Override
     public void move(int move, Player player) {
-        if (0 < move && move < kant.length){
+        if (-1 < move && move < kant.length){
             kant[move] = true;
         }
         boolean A = true;
@@ -46,7 +46,7 @@ public class vierkant implements figuren {
     }
     @Override
     public boolean solidmove(int move) {
-        if (0 < move && move < kant.length){
+        if (0 <= move && move < kant.length){
             return true;
         }
         return false;
@@ -54,7 +54,7 @@ public class vierkant implements figuren {
 
     @Override
     public boolean algedaan(int move) {
-        return kant[move];
+        return !kant[move];
     }
 
     @Override

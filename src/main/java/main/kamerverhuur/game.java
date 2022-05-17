@@ -74,12 +74,12 @@ public class game {
         }
         for (int Y=0;Y<y;Y++){
             speelbord[0][Y].move(7,null);
-            speelbord[0][y].move(6,null);
+            speelbord[0][Y].move(6,null);
             speelbord[0][Y].move(5,null);
 
             speelbord[x-1][Y].move(3,null);
             speelbord[x-1][Y].move(4,null);
-            speelbord[x-1][y].move(5,null);
+            speelbord[x-1][Y].move(5,null);
 
         }
     }
@@ -90,15 +90,15 @@ public class game {
 
         }
         for (int Y=0;Y<y;Y++){
-            speelbord[0][Y].move(0,null);
-            speelbord[x-1][Y].move(2,null);
+            speelbord[0][Y].move(3,null);
+            speelbord[x-1][Y].move(1,null);
 
         }
     }
 
 
     public Boolean Solidmove(int X, int Y, int move){
-        if (max_X <= X && max_Y <= Y){
+        if (max_X >= X && max_Y >= Y){
              return speelbord[X][Y].solidmove(move);
         }
         return false;
@@ -106,22 +106,32 @@ public class game {
 
     public boolean algedaan_vakje1(int X, int Y, int move)
     {
-        if (max_X <= X && max_Y <= Y){
-            return speelbord[X][Y].algedaan(move);
+        if (Solidmove(X, Y, move)) {
+                return speelbord[X][Y].algedaan(move);
         }
         return false;
     }
     public boolean algedaanvakje2(int X, int Y, int move)
     {
-        if (max_X <= X && max_Y <= Y){
-            var A =  speelbord[X][Y].getvakje2( move);
-            X = X + A[0];
-            Y = Y + A[1];
-            if (max_X <= X && max_Y <= Y){
-                speelbord[X][Y].algedaan(speelbord[X][Y].switch_move(move));
-            }
+        if (Solidmove(X, Y, move)) {
+                var A = speelbord[X][Y].getvakje2(move);
+                X = X + A[0];
+                Y = Y + A[1];
+                if (max_X <= X && max_Y <= Y) {
+                    return speelbord[X][Y].algedaan(speelbord[X][Y].switch_move(move));
+                }
         }
         return false;
+    }
+    public Boolean MoveCheck(int X, int Y, int move){
+        if (Solidmove(X, Y, move)) {
+            return algedaan_vakje1(X, Y, move) || algedaanvakje2(X, Y, move);
+        }
+        return false;
+    }
+
+    public figuren getfiguur(int X, int y){
+        return speelbord[X][y];
     }
 
 }
