@@ -1,4 +1,3 @@
-import main.kamerverhuur.Speelbord;
 import main.kamerverhuur.game;
 import main.kamerverhuur.model.figuurs;
 import org.junit.jupiter.api.Assertions;

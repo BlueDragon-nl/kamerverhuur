@@ -1,13 +1,11 @@
-import main.kamerverhuur.Speelbord;
-import main.kamerverhuur.game;
-import main.kamerverhuur.model.figuurs;
+import main.kamerverhuur.Controllers.SpeelbordController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class equivalentieklassen_randwaarden {
     @Test
     void randvoorwaarden(){
-        Speelbord s = new Speelbord();
+        SpeelbordController s = new SpeelbordController();
         Assertions.assertEquals(s.factor(0), -1);
         Assertions.assertEquals(s.factor(1), 500);
         Assertions.assertEquals(s.factor(5), 100);

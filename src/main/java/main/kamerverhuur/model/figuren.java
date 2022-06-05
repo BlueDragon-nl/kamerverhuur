@@ -1,10 +1,9 @@
 package main.kamerverhuur.model;
 
 import javafx.scene.layout.Pane;
-import main.kamerverhuur.Player;
 
 public interface  figuren {
-    public void teken(Pane pane, int factoor);
+    public void teken(Pane pane, int factoor, boolean yourturn);
     public Player gekleurt();
     public void move(int move, Player player);
 
