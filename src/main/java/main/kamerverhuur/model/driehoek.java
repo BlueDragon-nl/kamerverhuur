@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.game;
 
 import java.util.ArrayList;
@@ -39,10 +40,10 @@ public class driehoek implements figuren {
     }
 
     @Override
-    public void teken(Pane pane, int factoor, boolean yourturn) {
-        int size = factoor/2;
-        Double pointX = (X+1) * size *2.0;
-        Double pointY = (Y/2) * size *2.0+ 50;
+    public void teken(Pane pane, int factoor, SpeelbordController Controller) {
+        int size = factoor;
+        Double pointX = X * size *2.0 + size+5;
+        Double pointY = Y/2 * size *2.0 + size+5;
 
         Point2D[] Points;
         if (!side){
@@ -62,9 +63,9 @@ public class driehoek implements figuren {
         ArrayList<Line> lines = new ArrayList<>();
 
         for (int i = 0; i < Points.length-1; i++ ) {
-            lines.add(newline(Points[i], Points[i+1], i, yourturn));
+            lines.add(newline(Points[i], Points[i+1], i, Controller));
         }
-        lines.add(newline(Points[2], Points[0], 2, yourturn));
+        lines.add(newline(Points[2], Points[0], 2, Controller));
 
         Polygon driehoek = new Polygon();
 
@@ -87,7 +88,7 @@ public class driehoek implements figuren {
 
 
 
-    public Line newline(Point2D Start, Point2D end, int position, boolean yourturn){
+    public Line newline(Point2D Start, Point2D end, int position, SpeelbordController Controller){
         Line line = new Line();
 
         line.setStartX(Start.getX());
@@ -98,14 +99,14 @@ public class driehoek implements figuren {
 
         line.setStrokeWidth(5.0);
 
-        if (yourturn) {
+
             line.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    Game.domove(X, Y, position, Game.getPlayers().getActivePlayer());
+                   Controller.domove(X, Y, position);
                 }
             });
-        }
+
         if (!kant[position]){
             line.setStyle("-fx-stroke: gray;");
         }
@@ -121,7 +122,6 @@ public class driehoek implements figuren {
     @Override
     public void move(int move, Player player) {
         if (-1 < move && move < kant.length){
-            game.setZetten();
             kant[move] = true;
         }
         boolean A = true;
@@ -153,7 +153,7 @@ public class driehoek implements figuren {
             case 1:
                 return new int[]{1, 1};
             default:
-                return new int[]{1, -1};
+                return new int[]{0, 1};
         }
     }
         switch (move) {
@@ -162,11 +162,16 @@ public class driehoek implements figuren {
             case 1:
                 return new int[]{-1, -1};
             default:
-                return new int[]{-1, 1};
+                return new int[]{0, -1};
         }
     }
 
     public int switch_move(int move){
         return move;
+    }
+
+    @Override
+    public  int getzetten(int x, int y) {
+        return x*(y/2)*3 + (x+(y/2));
     }
 }

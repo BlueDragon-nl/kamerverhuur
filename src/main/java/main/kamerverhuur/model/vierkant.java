@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.game;
 
 public class vierkant implements figuren {
@@ -32,17 +33,17 @@ public class vierkant implements figuren {
 
 
     @Override
-    public void teken(Pane pane, int factoor, boolean yourturn) {
+    public void teken(Pane pane, int factoor, SpeelbordController Controller) {
         int size = factoor;
-        Double pointX = (X+1) * size *2.0;
-        Double pointY = (Y+1) * size *2.0;
+        Double pointX = X * size *2.0 + size+5;
+        Double pointY = Y * size *2.0 + size+5;
 
 
         Line[] lines = {
-                newline(pointX - size, pointY - size, pointX + size, pointY - size, 0, yourturn),
-                newline(pointX + size, pointY - size, pointX + size, pointY + size, 1, yourturn),
-                newline(pointX + size, pointY + size, pointX - size, pointY + size, 2, yourturn),
-                newline(pointX - size, pointY + size, pointX - size, pointY - size, 3, yourturn)
+                newline(pointX - size, pointY - size, pointX + size, pointY - size, 0, Controller),
+                newline(pointX + size, pointY - size, pointX + size, pointY + size, 1, Controller),
+                newline(pointX + size, pointY + size, pointX - size, pointY + size, 2, Controller),
+                newline(pointX - size, pointY + size, pointX - size, pointY - size, 3, Controller)
             };
 
         Polygon vierkant = new Polygon();
@@ -66,7 +67,7 @@ public class vierkant implements figuren {
 
 
 
-    public Line newline(Double StartX, Double StartY, Double endX, Double endY, int position, boolean yourturn){
+    public Line newline(Double StartX, Double StartY, Double endX, Double endY, int position, SpeelbordController Controller){
         Line line = new Line();
 
         line.setStartX(StartX);
@@ -77,14 +78,14 @@ public class vierkant implements figuren {
 
         line.setStrokeWidth(5.0);
 
-        if (yourturn) {
+
             line.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    Game.domove(X, Y, position, Game.getPlayers().getActivePlayer());
+                    Controller.domove(X, Y, position);
                 }
             });
-        }
+
         if (!kant[position]){
             line.setStyle("-fx-stroke: gray;");
         }
@@ -100,7 +101,6 @@ public class vierkant implements figuren {
     @Override
     public void move(int move, Player player) {
         if (-1 < move && move < kant.length){
-            game.setZetten();
             kant[move] = true;
         }
         boolean A = true;
@@ -148,5 +148,10 @@ public class vierkant implements figuren {
             default:
                 return 1;
         }
+    }
+
+    @Override
+    public int getzetten(int x, int y) {
+        return x*y*2 + (x+y);
     }
 }

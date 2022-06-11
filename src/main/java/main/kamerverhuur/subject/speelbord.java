@@ -1,12 +1,11 @@
-package main.kamerverhuur;
+package main.kamerverhuur.subject;
 
 import main.kamerverhuur.Controllers.SpeelbordController;
+import main.kamerverhuur.game;
 import main.kamerverhuur.model.Player;
 import main.kamerverhuur.model.figuren;
 
-import java.util.ArrayList;
-
-public class speelbord extends Observer<SpeelbordController> {
+public class speelbord extends subject<SpeelbordController> {
 
     private figuren[][] speelbord;
     private int max_X, max_Y;
@@ -20,11 +19,9 @@ public class speelbord extends Observer<SpeelbordController> {
 
     public void setSpeelbord(figuren[][] speelbord) {
         this.speelbord = speelbord;
+        update();
     }
 
-    public figuren[][] getSpeelbord() {
-        return speelbord;
-    }
 
 
     public int getMax_X() {
@@ -83,11 +80,23 @@ public class speelbord extends Observer<SpeelbordController> {
                 getfiguur(X, Y).move(getfiguur(X, Y).switch_move(move), player);
             }catch (Exception e){}
 
-            Game.getPlayers().nextturn();
             update();
            return true;
         }
         return false;
+    }
+
+    public SpeelbordController getcontroller(Player player){
+        for (var controller : ingeschrijven) {
+            if (controller.getPlayer() ==  player){
+                return controller;
+            }
+        }
+        return null;
+    }
+
+    public int getZetten(){
+        return speelbord[0][0].getzetten(max_X, max_Y);
     }
 
 

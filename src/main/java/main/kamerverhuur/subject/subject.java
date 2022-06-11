@@ -1,8 +1,9 @@
-package main.kamerverhuur;
+package main.kamerverhuur.subject;
 
 import java.util.ArrayList;
 
-public abstract class Observer<T> {
+
+public abstract class subject<T> {
     protected ArrayList<T> ingeschrijven = new ArrayList<>();
 
     public void Inschrijven(T item){
@@ -13,6 +14,8 @@ public abstract class Observer<T> {
         ingeschrijven.remove(item);
     }
 
-    public abstract void update();
+    public  void update(){
+
+    };
 
 }

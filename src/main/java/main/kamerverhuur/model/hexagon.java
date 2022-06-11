@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.game;
 
 import java.util.ArrayList;
@@ -36,10 +37,10 @@ public class hexagon implements figuren {
 
 
     @Override
-    public void teken(Pane pane, int factoor, boolean yourturn) {
+    public void teken(Pane pane, int factoor, SpeelbordController Controller) {
         int size = factoor;
-        Double pointX = (X+1) * size *2.0;
-        Double pointY = (Y+1) * size *2.0;
+        Double pointX = X * size *2.0 + size+5;
+        Double pointY = Y * size *2.0 + size+5;
         int half = size/2;
 
         var Points = new Point2D[]{
@@ -58,9 +59,9 @@ public class hexagon implements figuren {
         ArrayList<Line> lines = new ArrayList<>();
 
         for (int i = 0; i < Points.length-1; i++ ) {
-            lines.add(newline(Points[i], Points[i+1], i, yourturn));
+            lines.add(newline(Points[i], Points[i+1], i, Controller));
         }
-        lines.add(newline(Points[7], Points[0], 7, yourturn));
+        lines.add(newline(Points[7], Points[0], 7, Controller));
         Polygon hexagon = new Polygon();
 
 
@@ -83,7 +84,7 @@ public class hexagon implements figuren {
 
 
 
-    public Line newline(Point2D Start, Point2D end, int position, boolean yourturn){
+    public Line newline(Point2D Start, Point2D end, int position, SpeelbordController Controller){
         Line line = new Line();
 
         line.setStartX(Start.getX());
@@ -94,14 +95,13 @@ public class hexagon implements figuren {
 
         line.setStrokeWidth(5.0);
 
-        if (yourturn) {
+
             line.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    Game.domove(X, Y, position, Game.getPlayers().getActivePlayer());
+                    Controller.domove(X, Y, position);
                 }
             });
-        }
         if (!kant[position]){
             line.setStyle("-fx-stroke: gray;");
         }
@@ -117,7 +117,6 @@ public class hexagon implements figuren {
     @Override
     public void move(int move, Player player) {
         if (-1 < move && move < kant.length){
-            game.setZetten();
             kant[move] = true;
         }
         boolean A = true;
@@ -171,6 +170,11 @@ public class hexagon implements figuren {
             default:
                 return 3;
         }
+    }
+
+    @Override
+    public int getzetten(int x, int y){
+       return x* y* 6 + (x+y);
     }
 
 }

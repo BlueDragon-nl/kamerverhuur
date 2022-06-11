@@ -1,15 +1,11 @@
 package main.kamerverhuur;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-import javafx.geometry.Point2D;
-import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.model.*;
+import main.kamerverhuur.subject.*;
+
 
 public class game {
     public speelbord speelbord;
-    private static int zetten =0;
 
     private activePlayer players = new activePlayer(this);
 
@@ -17,8 +13,9 @@ public class game {
         return players;
     }
 
+    public int turn;
+
     public boolean newgame_test(figuurs figuur, int X, int Y, boolean Sides){
-        zetten =0;
         if (X>=1 && Y>=1){
             newgame( figuur,  X, Y,  Sides);
             return true;
@@ -27,24 +24,32 @@ public class game {
     }
 
     public void domove(int X, int Y, int move, Player player){
-        if (player == players.getActivePlayer()){
-            speelbord.domove( X,  Y,  move,  player, this);
-
-            //System.out.println(players.scoreboard());
-
+        turn++;
+        int score = players.getActivePlayer().score(speelbord);
+        if (speelbord.domove( X,  Y,  move,  player, this)){
+                if (score == players.getActivePlayer().score(speelbord)){
+                    getPlayers().nextturn();
+                }
+                if (speelbord.getZetten() == turn){
+                    Player winnar = getwinnar();
+                    System.out.println("de winnar is " +winnar.name + " met een score van "+ winnar.score(speelbord));
+                }
+            }
+    }
+    public Player getwinnar(){
+        Player winnar = new Player("", null);
+        int highscore = 0;
+        for (var player :players.Scroreboard()) {
+            if (highscore > player.score(speelbord)){
+                winnar = player;
+            }
         }
+        return winnar;
     }
 
-    public static void setZetten() {
-        zetten--;
-    }
 
-    public static int getZetten() {
-        return zetten;
-    }
 
     public void newgame(figuurs figuur, int X,int Y, boolean Sides) {
-        zetten =0;
         figuren[][] speelbord;
 
         switch (figuur){
@@ -53,36 +58,30 @@ public class game {
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
                         if (y % 2 == 0){
-                            zetten += 3;
                             speelbord[x][y] = new driehoek(x, y, this);
                         }else {
                             speelbord[x][y] = new driehoek(true, x, y, this);
                         }
                     }
                 }
-                zetten += X + Y;
                 if (Sides){setborder_driehoek(X, Y, speelbord);}
                 break;
 
             case hexagon: speelbord = new hexagon[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
-                        zetten += 6;
                         speelbord[x][y] = new hexagon(x, y, this);
                     }
                 }
-                zetten += X + Y;
                 if (Sides){setborder_Hexagon(X, Y, speelbord);}
                 break;
 
             default: speelbord = new vierkant[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
-                        zetten += 2;
                         speelbord[x][y] = new vierkant(x, y, this);
                     }
                 }
-                zetten += X + Y;
                 if (Sides){setborder_vierkant(X, Y, speelbord);}
                 break;
         }
@@ -92,8 +91,9 @@ public class game {
     }
 
     public void startgame(){
-        players.setActivePlayer(players.ingeschrijven.get(0));
+        players.startgame();
         speelbord.update();
+        turn = 0;
     }
 
 

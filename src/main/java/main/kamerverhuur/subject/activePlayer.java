@@ -1,11 +1,14 @@
-package main.kamerverhuur;
+package main.kamerverhuur.subject;
 
 
 import main.kamerverhuur.model.Player;
 
-public class activePlayer extends Observer<Player>{
+import java.util.ArrayList;
+
+
+public class activePlayer extends subject<Player> {
     private Player activePlayer;
-    private game game;
+    private main.kamerverhuur.game game;
 
     public activePlayer(main.kamerverhuur.game game) {
         this.game = game;
@@ -19,6 +22,10 @@ public class activePlayer extends Observer<Player>{
         this.activePlayer = activePlayer;
         activePlayer.isturn = true;
         update();
+    }
+
+    public void startgame(){
+       setActivePlayer(ingeschrijven.get(0));
     }
 
     public void nextturn(){
@@ -35,18 +42,11 @@ public class activePlayer extends Observer<Player>{
 
     @Override
     public void update() {
-        for (var controller :game.speelbord.ingeschrijven) {
-            if (controller.getPlayer() == activePlayer){
-                    controller.yourturn(activePlayer.isturn);
-            }
-        }
+        activePlayer.update(game);
     }
 
-    public String scoreboard(){
-        String scoreboard = "";
-        for (var item :ingeschrijven) {
-            scoreboard += "scrore van "+item.name +" "+ item.score(game.speelbord)+"\n";
-        }
-        return scoreboard;
-    }
+   public ArrayList<Player> Scroreboard(){
+       return new ArrayList<>(ingeschrijven);
+   }
+
 }

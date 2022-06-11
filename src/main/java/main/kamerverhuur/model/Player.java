@@ -1,7 +1,9 @@
 package main.kamerverhuur.model;
 
 import javafx.scene.paint.Color;
-import main.kamerverhuur.speelbord;
+import main.kamerverhuur.game;
+import main.kamerverhuur.subject.speelbord;
+
 
 public class Player {
     public String name;
@@ -26,5 +28,10 @@ public class Player {
             }
         }
         return count;
+    }
+
+    public void update(game Game){
+        Game.speelbord.getcontroller(this).yourturn(isturn);
+
     }
 }

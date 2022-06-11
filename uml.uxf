@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <help_text>// Uncomment the following line to change the fontsize and font:
+fontsize=10
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Welcome to UMLet!
+//
+// Double-click on elements to add them to the diagram, or to copy them
+// Edit elements by modifying the text in this panel
+// Hold Ctrl to select multiple elements
+// Use Ctrl+mouse to select via lasso
+//
+// Use +/- or Ctrl+mouse wheel to zoom
+// Drag a whole relation at its central square icon
+//
+// Press Ctrl+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
+// Edit the files in the "palettes" directory to create your own element palettes
+//
+// Select "Custom Elements &gt; New..." to create new element types
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// This text will be stored with each diagram;  use it for notes.</help_text>
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>1550</y>
+      <w>480</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>model::driehoek
+--
++kant = { false, false, false }: Boolean[]
++side = false: boolean
++ingekleurt = null: Player
++X: int
++Y: int
++Game: game
+--
++driehoek(int x, int y, game Game): ctor
++driehoek(boolean side, int x, int y, game Game): ctor
++teken(Pane pane, int factoor, boolean yourturn): void
++newline(Point2D Start, Point2D end, int position, boolean yourturn): Line
++gekleurt(): Player
++move(int move, Player player): void
++solidmove(int move): boolean
++algedaan(int move): boolean
++getvakje2(int move): int[]
++switch_move(int move): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>1550</y>
+      <w>480</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>model::hexagon
+--
++kant = { false, false, false, false, false, false, false, false }: Boolean[]
++X: int
++Y: int
++Game: game
++ingekleurt = null: Player
+--
++hexagon(int x, int y, game Game): ctor
++teken(Pane pane, int factoor, boolean yourturn): void
++newline(Point2D Start, Point2D end, int position, boolean yourturn): Line
++gekleurt(): Player
++move(int move, Player player): void
++solidmove(int move): boolean
++algedaan(int move): boolean
++getvakje2(int move): int[]
++switch_move(int move): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>980</x>
+      <y>1550</y>
+      <w>670</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>model::vierkant
+--
++kant = { false, false, false, false }: Boolean[]
++X: int
++Y: int
++Game: game
++ingekleurt = null: Player
+--
++vierkant(int x, int y, game Game): ctor
++teken(Pane pane, int factoor, boolean yourturn): void
++newline(Double StartX, Double StartY, Double endX, Double endY, int position, boolean yourturn): Line
++gekleurt(): Player
++move(int move, Player player): void
++solidmove(int move): boolean
++algedaan(int move): boolean
++getvakje2(int move): int[]
++switch_move(int move): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>750</x>
+      <y>460</y>
+      <w>440</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>game
+--
++speelbord: speelbord
+-zetten = 0: int
+-players = new activePlayer(this): activePlayer
+--
++getPlayers(): activePlayer
++newgame_test(figuurs figuur, int X, int Y, boolean Sides): boolean
++domove(int X, int Y, int move, Player player): void
++setZetten(): void
++getZetten(): int
++newgame(figuurs figuur, int X, int Y, boolean Sides): void
++startgame(): void
+-setborder_driehoek(int x, int y, figuren[][] speelbord): void
+-setborder_Hexagon(int x, int y, figuren[][] speelbord): void
+-setborder_vierkant(int x, int y, figuren[][] speelbord): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>360</y>
+      <w>370</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>Controllers::SpeelbordController
+--
+-Rootpane: AnchorPane
+-speelbord: Pane
+-turn: Text
+-Game: game
+-player: Player
+-yourturn = false: boolean
+--
++getPlayer(): Player
++factor(int aantalvakjes): int
++set(game Game, Player player): void
++yourturn(boolean yourturn): void
++loid(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>60</y>
+      <w>380</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>Controllers::StartController
+--
+-X, Y: TextField
+-figuursbox: ChoiceBox&lt;figuurs&gt;
+-aantalPlayers: ChoiceBox&lt;Integer&gt;
+-newgame: Button
+-rootpane: AnchorPane
+-sides: CheckBox
+--
++newgame(ActionEvent event): void
++Screen(Player player, game game): SpeelbordController
++initialize(URL url, ResourceBundle resourceBundle): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1030</x>
+      <y>840</y>
+      <w>350</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>activePlayer
+--
+-activePlayer: Player
+-game: game
+--
++activePlayer(main.kamerverhuur.game game): ctor
++getActivePlayer(): Player
++setActivePlayer(Player activePlayer): void
++nextturn(): void
++update(): void
++scoreboard(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>1240</y>
+      <w>360</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+model::figuren
+--
+--
++teken(Pane pane, int factoor, boolean yourturn): void
++gekleurt(): Player
++move(int move, Player player): void
++solidmove(int move): boolean
++algedaan(int move): boolean
++getvakje2(int move): int[]
++switch_move(int move): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1270</x>
+      <y>1110</y>
+      <w>260</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>model::Player
+--
++name: String
++color: Color
++isturn: boolean
+--
++Player(String name, Color color): ctor
++score(speelbord speelbord): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>980</x>
+      <y>1280</y>
+      <w>310</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>/main.kamerverhuur::Subject/
+--
+#ingeschrijven = new ArrayList(): ArrayList&lt;T&gt;
+--
++Inschrijven(T item): void
++Uitschrijven(T item): void
++update(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>830</x>
+      <y>1420</y>
+      <w>420</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;400.0;60.0;400.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>680</x>
+      <y>1420</y>
+      <w>30</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>190</x>
+      <y>1420</y>
+      <w>400</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>380.0;10.0;380.0;70.0;10.0;70.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>840</y>
+      <w>450</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>speelbord
+--
+-speelbord: figuren[][]
+-max_X, max_Y: int
+--
++speelbord(int max_X, int max_Y): ctor
++setSpeelbord(figuren[][] speelbord): void
++getMax_X(): int
++getMax_Y(): int
++Solidmove(int X, int Y, int move): Boolean
++algedaan_vakje1(int X, int Y, int move): boolean
++algedaanvakje2(int X, int Y, int move): boolean
++MoveCheck(int X, int Y, int move): Boolean
++getfiguur(int X, int y): figuren
++domove(int X, int Y, int move, Player player, game Game): Boolean
++update(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>1130</y>
+      <w>80</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+1
+speelboord
+*</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>830</x>
+      <y>730</y>
+      <w>70</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+1
+speelbord
+1</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1090</x>
+      <y>730</y>
+      <w>60</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+1
+Spelers
+1</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1350</x>
+      <y>1020</y>
+      <w>90</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+1
+ingeschreven
+*</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>1090</y>
+      <w>160</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;190.0;140.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1130</x>
+      <y>1020</y>
+      <w>30</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;260.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>600</y>
+      <w>90</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+*
+ingeschreven
+1</panel_attributes>
+    <additional_attributes>10.0;240.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>600</y>
+      <w>60</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+*
+update
+1</panel_attributes>
+    <additional_attributes>10.0;240.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1270</x>
+      <y>1020</y>
+      <w>60</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+*
+update
+1</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>0</y>
+      <w>1080</w>
+      <h>1130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+1
+player
+1</panel_attributes>
+    <additional_attributes>1060.0;1110.0;1050.0;20.0;10.0;10.0;10.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>260</y>
+      <w>60</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+1
+screen
+*</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>260</y>
+      <w>70</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1
+newgame
+*</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>910</x>
+      <y>260</y>
+      <w>70</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1
+startgame
+*</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>580</y>
+      <w>1410</w>
+      <h>1390</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1
+domove
+*</panel_attributes>
+    <additional_attributes>870.0;10.0;1360.0;10.0;1360.0;1370.0;10.0;1370.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1240</x>
+      <y>1840</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>780</x>
+      <y>1840</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>1870</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

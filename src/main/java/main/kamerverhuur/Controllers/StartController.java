@@ -46,7 +46,7 @@ public class StartController implements Initializable {
     private CheckBox sides;
 
     @FXML
-    void newgame(ActionEvent event) throws IOException {
+    public void newgame(ActionEvent event) throws IOException {
         int getX =  parseInt((X.getText()));
         int getY =  parseInt(Y.getText());
 
@@ -80,7 +80,6 @@ public class StartController implements Initializable {
             @Override
             public void handle(WindowEvent windowEvent) {
                 game.speelbord.Uitschrijven((SpeelbordController) fxmlLoader.getController());
-                game.getPlayers().nextturn();
                 game.getPlayers().Uitschrijven(player);
             }
         });
