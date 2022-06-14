@@ -12,83 +12,65 @@ import main.kamerverhuur.game;
 
 import java.util.ArrayList;
 
-public class driehoek implements figuren {
-    public Boolean[] kant = {       false,
-                                    false,
-                                    false
-                            };
+public class driehoek extends figuur {
+
     public boolean side = false;
 
-    public Player ingekleurt = null;
-
-    public int X;
-    public int Y;
-    public game Game;
-
     public driehoek(int x, int y, game Game) {
-        X = x;
-        Y = y;
-        this.Game = Game;
+        super(x,y,Game);
         this.side = false;
+        kant = new Boolean[]{false, false, false};
     }
 
     public driehoek(boolean side, int x, int y, game Game) {
-        X = x;
-        Y = y;
-        this.Game = Game;
+        super(x,y,Game);
         this.side = side;
+        kant = new Boolean[]{false, false, false};
     }
 
     @Override
-    public void teken(Pane pane, int factoor, SpeelbordController Controller) {
-        int size = factoor;
-        Double pointX = X * size *2.0 + size+5;
-        Double pointY = Y/2 * size *2.0 + size+5;
+    public void teken(Pane pane, int Xfactoor, int Yfactoor, SpeelbordController Controller) {
+        Point2D[] Points = point2DS(Xfactoor, Yfactoor);
+
+        ArrayList<Line> lines = makelines(Points, Controller);
+        Polygon driehoek = newPolygon(Points);
+
+        pane.getChildren().addAll(lines);
+        pane.getChildren().add(driehoek);
+    }
+
+    private Point2D[] point2DS(int Xfactoor, int Yfactoor){
+        Double pointX = X * Xfactoor *2.0 + Xfactoor+5;
+        Double pointY = Y/2 * Yfactoor *2.0 + Yfactoor+5;
 
         Point2D[] Points;
         if (!side){
-
             Points = new Point2D[]{
-                    new Point2D(pointX - size, pointY - size),
-                    new Point2D(pointX + size, pointY - size),
-                    new Point2D(pointX + size, pointY + size)};
+                    new Point2D(pointX - Xfactoor, pointY - Yfactoor),
+                    new Point2D(pointX + Xfactoor, pointY - Yfactoor),
+                    new Point2D(pointX + Xfactoor, pointY + Yfactoor)};
         }else {
             Points = new Point2D[]{
-                    new Point2D(pointX + size, pointY + size),
-                    new Point2D(pointX - size, pointY + size),
-                    new Point2D(pointX - size, pointY - size)};
+                    new Point2D(pointX + Xfactoor, pointY + Yfactoor),
+                    new Point2D(pointX - Xfactoor, pointY + Yfactoor),
+                    new Point2D(pointX - Xfactoor, pointY - Yfactoor)};
 
-        };
+        }
+        return Points;
+    }
 
+    private ArrayList<Line> makelines(Point2D[] Points, SpeelbordController Controller){
         ArrayList<Line> lines = new ArrayList<>();
 
         for (int i = 0; i < Points.length-1; i++ ) {
             lines.add(newline(Points[i], Points[i+1], i, Controller));
         }
         lines.add(newline(Points[2], Points[0], 2, Controller));
-
-        Polygon driehoek = new Polygon();
-
-        for (var point:Points) {
-            driehoek.getPoints().add(point.getX());
-            driehoek.getPoints().add(point.getY());
-        }
-
-
-        if (ingekleurt != null){
-            driehoek.setFill(ingekleurt.color);
-        }else {
-            driehoek.setFill(Color.WHITE);
-        }
-
-        pane.getChildren().addAll(lines);
-        pane.getChildren().add(driehoek);
-
+        return lines;
     }
 
 
-
-    public Line newline(Point2D Start, Point2D end, int position, SpeelbordController Controller){
+    private Line newline(Point2D Start, Point2D end, int position, SpeelbordController Controller){
         Line line = new Line();
 
         line.setStartX(Start.getX());
@@ -100,12 +82,12 @@ public class driehoek implements figuren {
         line.setStrokeWidth(5.0);
 
 
-            line.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                   Controller.domove(X, Y, position);
-                }
-            });
+        line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Controller.domove(X, Y, position);
+            }
+        });
 
         if (!kant[position]){
             line.setStyle("-fx-stroke: gray;");
@@ -114,10 +96,7 @@ public class driehoek implements figuren {
         return line;
     }
 
-    @Override
-    public Player gekleurt() {
-        return ingekleurt;
-    }
+
 
     @Override
     public void move(int move, Player player) {

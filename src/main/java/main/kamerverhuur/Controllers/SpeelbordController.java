@@ -42,11 +42,10 @@ public class SpeelbordController {
     }
 
     public int factor(int aantalvakjes){
-        //if (aantalvakjes < 1){return -1;}
-        //else if (0 < aantalvakjes && aantalvakjes < 10){return 5000/aantalvakjes;}
-        //else if (10 <= aantalvakjes && aantalvakjes < 20){return 7500/aantalvakjes;}
-        //else {return 10000/aantalvakjes;}
-        return 523 / (aantalvakjes+1);
+        if (aantalvakjes < 1){return -1;}
+        else if (0 < aantalvakjes && aantalvakjes < 50){return 500/aantalvakjes;}
+        else if (50 <= aantalvakjes && aantalvakjes < 100){return 1000/aantalvakjes;}
+        else {return 20000/aantalvakjes;}
     }
 
     public void set(game Game, Player player){
@@ -65,7 +64,6 @@ public class SpeelbordController {
             this.yourturn = false;
             turn.setText("");
         }
-        //loid();
     }
 
 
@@ -84,7 +82,7 @@ public class SpeelbordController {
         speelbord.getChildren().clear();
         for (int x=0; x< Game.speelbord.getMax_X(); x++){
             for (int y=0; y < Game.speelbord.getMax_Y(); y++){
-                Game.speelbord.getfiguur(x,y).teken(speelbord, factor(Game.speelbord.getMax_X()), this);
+                Game.speelbord.getfiguur(x,y).teken(speelbord, factor(Game.speelbord.getMax_X()), factor(Game.speelbord.getMax_Y()), this);
             }
         }
     }

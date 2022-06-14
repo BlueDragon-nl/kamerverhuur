@@ -1,6 +1,7 @@
 package main.kamerverhuur.model;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -9,56 +10,22 @@ import javafx.scene.shape.Polygon;
 import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.game;
 
-public class vierkant implements figuren {
-    public Boolean[] kant = {       false,
-            false,
-            false,
-            false
-    };
+import java.util.ArrayList;
 
-    public int X;
-    public int Y;
-
-
-    public game Game;
-
-
+public class vierkant extends figuur {
     public vierkant(int x, int y, game Game) {
-        X = x;
-        Y = y;
-        this.Game = Game;
+        super(x,y,Game);
+        kant = new Boolean[]{false, false, false, false};
     }
 
-    public Player ingekleurt = null;
 
 
     @Override
-    public void teken(Pane pane, int factoor, SpeelbordController Controller) {
-        int size = factoor;
-        Double pointX = X * size *2.0 + size+5;
-        Double pointY = Y * size *2.0 + size+5;
+    public void teken(Pane pane, int factoor, int Yfactoor, SpeelbordController Controller) {
+        Point2D[] Point = point2DS(factoor);
 
-
-        Line[] lines = {
-                newline(pointX - size, pointY - size, pointX + size, pointY - size, 0, Controller),
-                newline(pointX + size, pointY - size, pointX + size, pointY + size, 1, Controller),
-                newline(pointX + size, pointY + size, pointX - size, pointY + size, 2, Controller),
-                newline(pointX - size, pointY + size, pointX - size, pointY - size, 3, Controller)
-            };
-
-        Polygon vierkant = new Polygon();
-
-
-        vierkant.getPoints().setAll(pointX - size, pointY - size,
-                pointX + size, pointY - size,
-                pointX + size, pointY + size,
-                pointX - size, pointY + size);
-
-        if (ingekleurt != null){
-            vierkant.setFill(ingekleurt.color);
-        }else {
-            vierkant.setFill(Color.WHITE);
-        }
+        ArrayList<Line> lines = lines(Point, Controller);
+        Polygon vierkant =  newPolygon(Point);
 
         pane.getChildren().addAll(lines);
         pane.getChildren().add(vierkant);
@@ -66,26 +33,48 @@ public class vierkant implements figuren {
         }
 
 
+    public ArrayList<Line> lines(Point2D[] Points, SpeelbordController Controller){
+        ArrayList<Line> lines = new ArrayList<>();
+        for (int i = 0; i < Points.length-1; i++ ) {
+            lines.add(newline(Points[i], Points[i+1], i, Controller));
+        }
+        lines.add(newline(Points[3], Points[0], 3, Controller));
+        return lines;
+    }
 
-    public Line newline(Double StartX, Double StartY, Double endX, Double endY, int position, SpeelbordController Controller){
+    public Point2D[] point2DS(int size){
+        Double pointX = X * size *2.0 + size+5;
+        Double pointY = Y * size *2.0 + size+5;
+
+        return  new Point2D[]{
+                new Point2D(pointX - size, pointY - size),
+                new Point2D(pointX + size, pointY - size),
+
+                new Point2D(pointX + size, pointY + size),
+                new Point2D(pointX - size, pointY + size),
+        };
+    }
+
+
+
+    public Line newline(Point2D Start, Point2D end, int position, SpeelbordController Controller){
         Line line = new Line();
 
-        line.setStartX(StartX);
-        line.setStartY(StartY);
+        line.setStartX(Start.getX());
+        line.setStartY(Start.getY());
 
-        line.setEndX(endX);
-        line.setEndY(endY);
+        line.setEndX(end.getX());
+        line.setEndY(end.getY());
 
         line.setStrokeWidth(5.0);
 
 
-            line.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    Controller.domove(X, Y, position);
-                }
-            });
-
+        line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Controller.domove(X, Y, position);
+            }
+        });
         if (!kant[position]){
             line.setStyle("-fx-stroke: gray;");
         }
@@ -93,10 +82,9 @@ public class vierkant implements figuren {
         return line;
     }
 
-    @Override
-    public Player gekleurt() {
-        return ingekleurt;
-    }
+
+
+
 
     @Override
     public void move(int move, Player player) {

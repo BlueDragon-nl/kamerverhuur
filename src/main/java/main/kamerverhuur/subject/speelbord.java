@@ -3,11 +3,11 @@ package main.kamerverhuur.subject;
 import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.game;
 import main.kamerverhuur.model.Player;
-import main.kamerverhuur.model.figuren;
+import main.kamerverhuur.model.figuur;
 
 public class speelbord extends subject<SpeelbordController> {
 
-    private figuren[][] speelbord;
+    private figuur[][] speelbord;
     private int max_X, max_Y;
 
     public speelbord(int max_X, int max_Y){
@@ -17,7 +17,7 @@ public class speelbord extends subject<SpeelbordController> {
 
 
 
-    public void setSpeelbord(figuren[][] speelbord) {
+    public void setSpeelbord(figuur[][] speelbord) {
         this.speelbord = speelbord;
         update();
     }
@@ -63,7 +63,7 @@ public class speelbord extends subject<SpeelbordController> {
     }
 
 
-    public figuren getfiguur(int X, int y){
+    public figuur getfiguur(int X, int y){
         return speelbord[X][y];
     }
 

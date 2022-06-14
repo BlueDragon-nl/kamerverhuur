@@ -12,74 +12,56 @@ import main.kamerverhuur.game;
 
 import java.util.ArrayList;
 
-public class hexagon implements figuren {
-    public Boolean[] kant = {       false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-    };
-
-    public int X;
-    public int Y;
-    public game Game;
-
+public class hexagon extends figuur {
 
     public hexagon(int x, int y, game Game) {
-        X = x;
-        Y = y;
-        this.Game = Game;
+        super(x,y,Game);
+        kant = new Boolean[]{false, false, false, false, false, false, false, false};
     }
-    public Player ingekleurt = null;
 
 
     @Override
-    public void teken(Pane pane, int factoor, SpeelbordController Controller) {
-        int size = factoor;
-        Double pointX = X * size *2.0 + size+5;
-        Double pointY = Y * size *2.0 + size+5;
-        int half = size/2;
+    public void teken(Pane pane, int Xfactoor, int Yfactoor, SpeelbordController Controller) {
+        Point2D[] Points = point2DS(Xfactoor, Yfactoor);
 
-        var Points = new Point2D[]{
-                new Point2D(pointX - half, pointY - size),
-                new Point2D(pointX + half, pointY - size),
-
-                new Point2D(pointX + size, pointY - half),
-                new Point2D(pointX + size, pointY + half),
-
-                new Point2D(pointX + half, pointY + size),
-                new Point2D(pointX - half, pointY + size),
-
-                new Point2D(pointX - size, pointY + half),
-                new Point2D(pointX - size, pointY - half)
-        };
-        ArrayList<Line> lines = new ArrayList<>();
-
-        for (int i = 0; i < Points.length-1; i++ ) {
-            lines.add(newline(Points[i], Points[i+1], i, Controller));
-        }
-        lines.add(newline(Points[7], Points[0], 7, Controller));
-        Polygon hexagon = new Polygon();
-
-
-        for (var point:Points) {
-            hexagon.getPoints().add(point.getX());
-            hexagon.getPoints().add(point.getY());
-        }
-
-
-        if (ingekleurt != null){
-            hexagon.setFill(ingekleurt.color);
-        }else {
-            hexagon.setFill(Color.WHITE);
-        }
+        ArrayList<Line> lines = lines(Points, Controller);
+        Polygon hexagon = newPolygon(Points);
 
         pane.getChildren().addAll(lines);
         pane.getChildren().add(hexagon);
 
+    }
+
+
+
+    public ArrayList<Line> lines(Point2D[] Points, SpeelbordController Controller){
+        ArrayList<Line> lines = new ArrayList<>();
+        for (int i = 0; i < Points.length-1; i++ ) {
+            lines.add(newline(Points[i], Points[i+1], i, Controller));
+        }
+        lines.add(newline(Points[7], Points[0], 7, Controller));
+        return lines;
+    }
+
+    public Point2D[] point2DS(int Xfactoor, int Yfactoor){
+        Double pointX = X * Xfactoor *2.0 + Xfactoor+5;
+        Double pointY = Y * Yfactoor *2.0 + Yfactoor+5;
+        int Xhalf = Xfactoor/2;
+        int Yhalf = Yfactoor/2;
+
+        return  new Point2D[]{
+                new Point2D(pointX - Xhalf, pointY - Yfactoor),
+                new Point2D(pointX + Xhalf, pointY - Yfactoor),
+
+                new Point2D(pointX + Xfactoor, pointY - Yhalf),
+                new Point2D(pointX + Xfactoor, pointY + Yhalf),
+
+                new Point2D(pointX + Xhalf, pointY + Yfactoor),
+                new Point2D(pointX - Xhalf, pointY + Yfactoor),
+
+                new Point2D(pointX - Xfactoor, pointY + Yhalf),
+                new Point2D(pointX - Xfactoor, pointY - Yhalf)
+        };
     }
 
 
@@ -109,10 +91,6 @@ public class hexagon implements figuren {
         return line;
     }
 
-    @Override
-    public Player gekleurt() {
-        return ingekleurt;
-    }
 
     @Override
     public void move(int move, Player player) {

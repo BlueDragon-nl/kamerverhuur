@@ -50,7 +50,7 @@ public class game {
 
 
     public void newgame(figuurs figuur, int X,int Y, boolean Sides) {
-        figuren[][] speelbord;
+        main.kamerverhuur.model.figuur[][] speelbord;
 
         switch (figuur){
             case driehoek: Y = Y*2;
@@ -98,7 +98,7 @@ public class game {
 
 
 
-    private void setborder_driehoek(int x,int y, figuren[][] speelbord){
+    private void setborder_driehoek(int x,int y, figuur[][] speelbord){
         for (int X=0; X< x ;X++){
             speelbord[X][0].move(0,null);
             speelbord[X][y-1].move(0,null);
@@ -114,7 +114,7 @@ public class game {
         }
         speelbord[0][y-1].move(1,null);
     }
-    private void setborder_Hexagon(int x,int y, figuren[][] speelbord){
+    private void setborder_Hexagon(int x,int y, figuur[][] speelbord){
         for (int X=0; X< x ;X++){
             speelbord[X][0].move(1,null);
             speelbord[X][0].move(0,null);
@@ -136,7 +136,7 @@ public class game {
 
         }
     }
-    private void setborder_vierkant(int x,int y, figuren[][] speelbord){
+    private void setborder_vierkant(int x,int y, figuur[][] speelbord){
         for (int X=0; X< x ;X++){
             speelbord[X][0].move(0,null);
             speelbord[X][y-1].move(2,null);
