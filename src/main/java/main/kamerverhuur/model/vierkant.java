@@ -1,43 +1,94 @@
 package main.kamerverhuur.model;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import main.kamerverhuur.Player;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.game;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
-public class vierkant implements figuren {
-    public Boolean[] kant = {       false,
-            false,
-            false,
-            false
-    };
-
-    public int X;
-    public int Y;
-
-    public vierkant(int x, int y) {
-        X = x;
-        Y = y;
+public class vierkant extends figuur {
+    public vierkant(int x, int y, game Game) {
+        super(x,y,Game);
+        kant = new Boolean[]{false, false, false, false};
     }
 
-    public Player ingekleurt = null;
 
 
     @Override
-    public void teken(Pane pane, int factoor) {
+    public void teken(Pane pane, int factoor, int Yfactoor, SpeelbordController Controller) {
+        Point2D[] Point = point2DS(factoor);
 
+        ArrayList<Line> lines = lines(Point, Controller);
+        Polygon vierkant =  newPolygon(Point);
+
+        pane.getChildren().addAll(lines);
+        pane.getChildren().add(vierkant);
+
+        }
+
+
+    public ArrayList<Line> lines(Point2D[] Points, SpeelbordController Controller){
+        ArrayList<Line> lines = new ArrayList<>();
+        for (int i = 0; i < Points.length-1; i++ ) {
+            lines.add(newline(Points[i], Points[i+1], i, Controller));
+        }
+        lines.add(newline(Points[3], Points[0], 3, Controller));
+        return lines;
     }
 
-    @Override
-    public Player gekleurt() {
-        return ingekleurt;
+    public Point2D[] point2DS(int size){
+        Double pointX = X * size *2.0 + size+5;
+        Double pointY = Y * size *2.0 + size+5;
+
+        return  new Point2D[]{
+                new Point2D(pointX - size, pointY - size),
+                new Point2D(pointX + size, pointY - size),
+
+                new Point2D(pointX + size, pointY + size),
+                new Point2D(pointX - size, pointY + size),
+        };
     }
+
+
+
+    public Line newline(Point2D Start, Point2D end, int position, SpeelbordController Controller){
+        Line line = new Line();
+
+        line.setStartX(Start.getX());
+        line.setStartY(Start.getY());
+
+        line.setEndX(end.getX());
+        line.setEndY(end.getY());
+
+        line.setStrokeWidth(5.0);
+
+
+        line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Controller.domove(X, Y, position);
+            }
+        });
+        if (!kant[position]){
+            line.setStyle("-fx-stroke: gray;");
+        }
+
+        return line;
+    }
+
+
+
+
 
     @Override
     public void move(int move, Player player) {
         if (-1 < move && move < kant.length){
-            game.setZetten();
             kant[move] = true;
         }
         boolean A = true;
@@ -74,7 +125,21 @@ public class vierkant implements figuren {
     }
 
     @Override
-    public int switch_move(int move){
-        return 3-move;
+    public int switch_move(int move) {
+        switch (move) {
+            case 0:
+                return 2;
+            case 1:
+                return 3;
+            case 2:
+                return 0;
+            default:
+                return 1;
+        }
+    }
+
+    @Override
+    public int getzetten(int x, int y) {
+        return x*y*2 + (x+y);
     }
 }
