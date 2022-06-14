@@ -51,8 +51,8 @@ public class StartController implements Initializable {
         int getY =  parseInt(Y.getText());
 
 
-        game game = new game();
-        game.newgame(figuursbox.getValue(), getX, getY, sides.isSelected());
+        game game = new game(getX, getY);
+        game.newgame(figuursbox.getValue(), sides.isSelected());
 
         var color = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.BROWN, Color.ORANGE, Color.PINK};
 

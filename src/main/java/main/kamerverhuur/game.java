@@ -15,14 +15,6 @@ public class game {
 
     public int turn;
 
-    public boolean newgame_test(figuurs figuur, int X, int Y, boolean Sides){
-        if (X>=1 && Y>=1){
-            newgame( figuur,  X, Y,  Sides);
-            return true;
-        }
-        return false;
-    }
-
     public void domove(Move move){
         turn++;
         int score = players.getActivePlayer().score(speelbord);
@@ -37,6 +29,7 @@ public class game {
                 }
             }
     }
+
     public Player getwinnar(){
         Player winnar = new Player("", null);
         int highscore = 0;
@@ -48,47 +41,50 @@ public class game {
         return winnar;
     }
 
+    public game(int X,int Y){
+        this.speelbord = new speelbord(X, Y);
+    }
 
-
-    public void newgame(figuurs figuur, int X,int Y, boolean Sides) {
-        main.kamerverhuur.model.figuur[][] speelbord;
+    public void newgame(figuurs figuur, boolean Sides) {
+        figuur[][] speelveld;
+        int X = this.speelbord.getMax_X();
+        int Y = this.speelbord.getMax_Y();
 
         switch (figuur){
             case driehoek: Y = Y*2;
-                speelbord = new driehoek[X][Y];
+                speelveld = new driehoek[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
                         if (y % 2 == 0){
-                            speelbord[x][y] = new driehoek(x, y, this);
+                            speelveld[x][y] = new driehoek(x, y, this);
                         }else {
-                            speelbord[x][y] = new driehoek(true, x, y, this);
+                            speelveld[x][y] = new driehoek(true, x, y, this);
                         }
                     }
                 }
-                if (Sides){setborder_driehoek(X, Y, speelbord);}
+                if (Sides){setborder_driehoek(X, Y, speelveld);}
                 break;
 
-            case hexagon: speelbord = new hexagon[X][Y];
+            case hexagon: speelveld = new hexagon[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
-                        speelbord[x][y] = new hexagon(x, y, this);
+                        speelveld[x][y] = new hexagon(x, y, this);
                     }
                 }
-                if (Sides){setborder_Hexagon(X, Y, speelbord);}
+                if (Sides){setborder_Hexagon(X, Y, speelveld);}
                 break;
 
-            default: speelbord = new vierkant[X][Y];
+            default: speelveld = new vierkant[X][Y];
                 for (int x=0; x< X; x++){
                     for (int y=0; y < Y; y++){
-                        speelbord[x][y] = new vierkant(x, y, this);
+                        speelveld[x][y] = new vierkant(x, y, this);
                     }
                 }
-                if (Sides){setborder_vierkant(X, Y, speelbord);}
+                if (Sides){setborder_vierkant(X, Y, speelveld);}
                 break;
         }
 
-        this.speelbord = new speelbord(X, Y);
-        this.speelbord.setSpeelbord(speelbord);
+        this.speelbord.setSpeelbord(speelveld);
     }
 
     public void startgame(){
