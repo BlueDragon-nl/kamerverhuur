@@ -37,18 +37,18 @@ public class vierkant extends figuur {
         ArrayList<Line> lines = new ArrayList<>();
         for (int i = 0; i < Points.length-1; i++ ) {
             lijn lijn = new lijn(newline(Points[i], Points[i+1]), Controller);
-            lijn.pres(new Move(X, Y, i), !kant[i]);
+            lijn.pres(new Move(new Point2D(point.getX(),point.getY()), i), !kant[i]);
             lines.add(lijn.getLine());
         }
         lijn lijn = new lijn(newline(Points[3], Points[0]), Controller);
-        lijn.pres(new Move(X, Y, 3), !kant[3]);
+        lijn.pres(new Move(new Point2D(point.getX(),point.getY()), 3), !kant[3]);
         lines.add(lijn.getLine());
         return lines;
     }
 
     public Point2D[] point2DS(int size){
-        Double pointX = X * size *2.0 + size+5;
-        Double pointY = Y * size *2.0 + size+5;
+        Double pointX = point.getX() * size *2.0 + size+5;
+        Double pointY = point.getY() * size *2.0 + size+5;
 
         return  new Point2D[]{
                 new Point2D(pointX - size, pointY - size),

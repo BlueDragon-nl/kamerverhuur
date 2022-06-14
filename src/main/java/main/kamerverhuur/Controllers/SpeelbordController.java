@@ -44,10 +44,17 @@ public class SpeelbordController {
 
     public int factor(int aantalvakjes){
         if (aantalvakjes < 1){return -1;}
-        else if (0 < aantalvakjes && aantalvakjes < 50){return 500/aantalvakjes;}
-        else if (50 <= aantalvakjes && aantalvakjes < 100){return 1000/aantalvakjes;}
-        else {return 20000/aantalvakjes;}
+        else if (0 < aantalvakjes && aantalvakjes < 50){return 500;}
+        else if (50 <= aantalvakjes && aantalvakjes < 100){return 1000;}
+        else {return 20000;}
     }
+    public int temporyfieldX(){
+        return factor(Game.speelbord.getMax_X())/Game.speelbord.getMax_X();
+    }
+    public int temporyfieldY(){
+        return factor(Game.speelbord.getMax_Y())/Game.speelbord.getMax_Y();
+    }
+
 
     public void set(game Game, Player player){
         this.Game = Game;
@@ -81,9 +88,10 @@ public class SpeelbordController {
     }
     private void setSpeelbord(){
         speelbord.getChildren().clear();
+
         for (int x=0; x< Game.speelbord.getMax_X(); x++){
             for (int y=0; y < Game.speelbord.getMax_Y(); y++){
-                Game.speelbord.getfiguur(x,y).teken(speelbord, factor(Game.speelbord.getMax_X()), factor(Game.speelbord.getMax_Y()), this);
+                Game.speelbord.getfiguur(x,y).teken(speelbord, temporyfieldX(), temporyfieldY(), this);
             }
         }
     }

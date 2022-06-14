@@ -51,35 +51,18 @@ public class game {
         int Y = this.speelbord.getMax_Y();
 
         switch (figuur){
-            case driehoek: Y = Y*2;
-                speelveld = new driehoek[X][Y];
-                for (int x=0; x< X; x++){
-                    for (int y=0; y < Y; y++){
-                        if (y % 2 == 0){
-                            speelveld[x][y] = new driehoek(x, y, this);
-                        }else {
-                            speelveld[x][y] = new driehoek(true, x, y, this);
-                        }
-                    }
-                }
+            case driehoek:
+                speelveld = speelvelddriehoek(X, Y*2);
                 if (Sides){setborder_driehoek(X, Y, speelveld);}
                 break;
 
-            case hexagon: speelveld = new hexagon[X][Y];
-                for (int x=0; x< X; x++){
-                    for (int y=0; y < Y; y++){
-                        speelveld[x][y] = new hexagon(x, y, this);
-                    }
-                }
+            case hexagon:
+                speelveld = speelveldHexagon(X, Y);
                 if (Sides){setborder_Hexagon(X, Y, speelveld);}
                 break;
 
-            default: speelveld = new vierkant[X][Y];
-                for (int x=0; x< X; x++){
-                    for (int y=0; y < Y; y++){
-                        speelveld[x][y] = new vierkant(x, y, this);
-                    }
-                }
+            default: speelveld = speelveldvierkant(X,Y);
+
                 if (Sides){setborder_vierkant(X, Y, speelveld);}
                 break;
         }
@@ -93,6 +76,38 @@ public class game {
         turn = 0;
     }
 
+    private driehoek[][] speelvelddriehoek(int X, int Y){
+        driehoek[][] speelveld = new driehoek[X][Y];
+        for (int x=0; x< X; x++){
+            for (int y=0; y < Y; y++){
+                if (y % 2 == 0){
+                    speelveld[x][y] = new driehoek(x, y, this);
+                }else {
+                    speelveld[x][y] = new driehoek(true, x, y, this);
+                }
+            }
+        }
+        return speelveld;
+    }
+    private hexagon[][] speelveldHexagon(int X, int Y){
+        hexagon[][]  speelveld = new hexagon[X][Y];
+        for (int x=0; x< X; x++){
+            for (int y=0; y < Y; y++){
+                speelveld[x][y] = new hexagon(x, y, this);
+            }
+        }
+        return speelveld;
+    }
+
+    private vierkant[][] speelveldvierkant(int X, int Y){
+        vierkant[][] speelveld = new vierkant[X][Y];
+        for (int x=0; x< X; x++){
+            for (int y=0; y < Y; y++){
+                speelveld[x][y] = new vierkant(x, y, this);
+            }
+        }
+        return speelveld;
+    }
 
 
     private void setborder_driehoek(int x,int y, figuur[][] speelbord){

@@ -19,6 +19,9 @@ public class speelbord extends subject<SpeelbordController> {
 
     public void setSpeelbord(figuur[][] speelbord) {
         this.speelbord = speelbord;
+        if (speelbord[0][0].getClass().toString().equals("class main.kamerverhuur.model.driehoek")){
+            max_Y *= 2;
+        }
         update();
     }
 
@@ -68,16 +71,16 @@ public class speelbord extends subject<SpeelbordController> {
     }
 
     public Boolean domove(Move move){
-        if (MoveCheck(move.X, move.Y, move.move)){
-            speelbord[move.X][move.Y].move(move.move, move.activeplayer);
+        if (MoveCheck(move.X(), move.Y(), move.move)){
+            speelbord[move.X()][move.Y()].move(move.move, move.activeplayer);
 
-            var A = getfiguur(move.X, move.Y).getvakje2(move.move);
+            var A = getfiguur(move.X(), move.Y()).getvakje2(move.move);
 
-            move.X = move.X + A[0];
-            move.Y = move.Y + A[1];
+            int X = move.X() + A[0];
+            int Y = move.Y() + A[1];
 
             try {
-                getfiguur(move.X, move.Y).move(getfiguur(move.X, move.Y).switch_move(move.move), move.activeplayer);
+                getfiguur(X, Y).move(getfiguur(X, Y).switch_move(move.move), move.activeplayer);
             }catch (Exception e){}
 
             update();

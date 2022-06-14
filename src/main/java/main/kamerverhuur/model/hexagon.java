@@ -38,19 +38,19 @@ public class hexagon extends figuur {
         ArrayList<Line> lines = new ArrayList<>();
         for (int i = 0; i < Points.length-1; i++ ) {
             lijn lijn = new lijn(newline(Points[i], Points[i+1]), Controller);
-            lijn.pres(new Move(X, Y, i), !kant[i]);
+            lijn.pres(new Move(new Point2D(point.getX(),point.getY()), i), !kant[i]);
             lines.add(lijn.getLine());
         }
         lijn lijn = new lijn((newline(Points[7], Points[0])), Controller);
-        lijn.pres(new Move(X, Y, 7), !kant[7]);
+        lijn.pres(new Move(new Point2D(point.getX(),point.getY()), 7), !kant[7]);
         lines.add(lijn.getLine());
 
         return lines;
     }
 
     public Point2D[] point2DS(int Xfactoor, int Yfactoor){
-        Double pointX = X * Xfactoor *2.0 + Xfactoor+5;
-        Double pointY = Y * Yfactoor *2.0 + Yfactoor+5;
+        Double pointX = point.getX() * Xfactoor *2.0 + Xfactoor+5;
+        Double pointY = point.getY() * Yfactoor *2.0 + Yfactoor+5;
         int Xhalf = Xfactoor/2;
         int Yhalf = Yfactoor/2;
 
