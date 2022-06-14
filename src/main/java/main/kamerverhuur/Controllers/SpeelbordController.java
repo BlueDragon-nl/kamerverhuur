@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import main.kamerverhuur.game;
+import main.kamerverhuur.model.Move;
 import main.kamerverhuur.model.Player;
 
 public class SpeelbordController {
@@ -89,7 +90,7 @@ public class SpeelbordController {
 
     public void domove(int X, int Y, int move){
        if (yourturn){
-           Game.domove(X, Y, move, player);
+           Game.domove(new Move(X, Y, move, player, Game));
        }
     }
 

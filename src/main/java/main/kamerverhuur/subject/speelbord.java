@@ -1,9 +1,9 @@
 package main.kamerverhuur.subject;
 
 import main.kamerverhuur.Controllers.SpeelbordController;
-import main.kamerverhuur.game;
 import main.kamerverhuur.model.Player;
 import main.kamerverhuur.model.figuur;
+import main.kamerverhuur.model.Move;
 
 public class speelbord extends subject<SpeelbordController> {
 
@@ -67,17 +67,17 @@ public class speelbord extends subject<SpeelbordController> {
         return speelbord[X][y];
     }
 
-    public Boolean domove(int X, int Y, int move, Player player, game Game){
-        if (MoveCheck(X, Y, move)){
-            speelbord[X][Y].move(move, player);
+    public Boolean domove(Move move){
+        if (MoveCheck(move.X, move.Y, move.move)){
+            speelbord[move.X][move.Y].move(move.move, move.activeplayer);
 
-            var A = getfiguur(X,Y).getvakje2(move);
+            var A = getfiguur(move.X, move.Y).getvakje2(move.move);
 
-            X = X + A[0];
-            Y = Y + A[1];
+            move.X = move.X + A[0];
+            move.Y = move.Y + A[1];
 
             try {
-                getfiguur(X, Y).move(getfiguur(X, Y).switch_move(move), player);
+                getfiguur(move.X, move.Y).move(getfiguur(move.X, move.Y).switch_move(move.move), move.activeplayer);
             }catch (Exception e){}
 
             update();

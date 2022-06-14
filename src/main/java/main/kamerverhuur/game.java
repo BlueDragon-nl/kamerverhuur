@@ -23,10 +23,10 @@ public class game {
         return false;
     }
 
-    public void domove(int X, int Y, int move, Player player){
+    public void domove(Move move){
         turn++;
         int score = players.getActivePlayer().score(speelbord);
-        if (speelbord.domove( X,  Y,  move,  player, this)){
+        if (speelbord.domove(new Move(move.X,  move.Y,  move.move,  move.activeplayer, this))){
                 if (score == players.getActivePlayer().score(speelbord)){
                     getPlayers().nextturn();
                 }
