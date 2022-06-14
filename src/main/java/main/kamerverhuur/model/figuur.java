@@ -45,7 +45,7 @@ public abstract class figuur {
         return vierkant;
     }
 
-    protected Line newline(Point2D Start, Point2D end, int position, SpeelbordController Controller){
+    protected Line newline(Point2D Start, Point2D end){
         Line line = new Line();
 
         line.setStartX(Start.getX());
@@ -55,20 +55,6 @@ public abstract class figuur {
         line.setEndY(end.getY());
 
         line.setStrokeWidth(5.0);
-
-
-        line.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Move move = new Move(X, Y, position);
-                Controller.domove(move);
-            }
-        });
-
-        if (!kant[position]){
-            line.setStyle("-fx-stroke: gray;");
-        }
-
         return line;
     }
 

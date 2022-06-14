@@ -15,4 +15,5 @@ public class Move {
         Y = y;
         this.move = move;
     }
+
 }

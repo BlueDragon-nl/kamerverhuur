@@ -63,9 +63,14 @@ public class driehoek extends figuur {
         ArrayList<Line> lines = new ArrayList<>();
 
         for (int i = 0; i < Points.length-1; i++ ) {
-            lines.add(newline(Points[i], Points[i+1], i, Controller));
+            lijn lijn = new lijn(newline(Points[i], Points[i+1]), Controller);
+            lijn.pres(new Move(X, Y, i), !kant[i]);
+            lines.add(lijn.getLine());
         }
-        lines.add(newline(Points[2], Points[0], 2, Controller));
+
+        lijn lijn = new lijn(newline(Points[2], Points[0]), Controller);
+        lijn.pres(new Move(X, Y, 2), !kant[2]);
+        lines.add(lijn.getLine());
         return lines;
     }
 

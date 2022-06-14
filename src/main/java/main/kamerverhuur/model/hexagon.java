@@ -37,9 +37,14 @@ public class hexagon extends figuur {
     public ArrayList<Line> lines(Point2D[] Points, SpeelbordController Controller){
         ArrayList<Line> lines = new ArrayList<>();
         for (int i = 0; i < Points.length-1; i++ ) {
-            lines.add(newline(Points[i], Points[i+1], i, Controller));
+            lijn lijn = new lijn(newline(Points[i], Points[i+1]), Controller);
+            lijn.pres(new Move(X, Y, i), !kant[i]);
+            lines.add(lijn.getLine());
         }
-        lines.add(newline(Points[7], Points[0], 7, Controller));
+        lijn lijn = new lijn((newline(Points[7], Points[0])), Controller);
+        lijn.pres(new Move(X, Y, 7), !kant[7]);
+        lines.add(lijn.getLine());
+
         return lines;
     }
 
