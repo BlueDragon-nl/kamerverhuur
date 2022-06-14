@@ -70,45 +70,7 @@ public class driehoek extends figuur {
     }
 
 
-    private Line newline(Point2D Start, Point2D end, int position, SpeelbordController Controller){
-        Line line = new Line();
 
-        line.setStartX(Start.getX());
-        line.setStartY(Start.getY());
-
-        line.setEndX(end.getX());
-        line.setEndY(end.getY());
-
-        line.setStrokeWidth(5.0);
-
-
-        line.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Controller.domove(X, Y, position);
-            }
-        });
-
-        if (!kant[position]){
-            line.setStyle("-fx-stroke: gray;");
-        }
-
-        return line;
-    }
-
-
-
-    @Override
-    public void move(int move, Player player) {
-        if (-1 < move && move < kant.length){
-            kant[move] = true;
-        }
-        boolean A = true;
-        for (var side: kant) {
-            if (!side){A = false;}
-        }
-        if (A){ingekleurt = player;}
-    }
 
     @Override
     public boolean solidmove(int move) {
@@ -118,10 +80,6 @@ public class driehoek extends figuur {
         return false;
     }
 
-    @Override
-    public boolean algedaan(int move) {
-        return !kant[move];
-    }
 
     @Override
     public int[] getvakje2( int move) {

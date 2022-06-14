@@ -1,8 +1,11 @@
 package main.kamerverhuur.model;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.game;
@@ -42,14 +45,52 @@ public abstract class figuur {
         return vierkant;
     }
 
+    protected Line newline(Point2D Start, Point2D end, int position, SpeelbordController Controller){
+        Line line = new Line();
+
+        line.setStartX(Start.getX());
+        line.setStartY(Start.getY());
+
+        line.setEndX(end.getX());
+        line.setEndY(end.getY());
+
+        line.setStrokeWidth(5.0);
+
+
+        line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Controller.domove(X, Y, position);
+            }
+        });
+
+        if (!kant[position]){
+            line.setStyle("-fx-stroke: gray;");
+        }
+
+        return line;
+    }
 
 
     public abstract void teken(Pane pane, int Xfactoor, int Yfactoor, SpeelbordController Controller);
-    public abstract void move(int move, Player player);
+
+    public void move(int move, Player player) {
+        if (-1 < move && move < kant.length){
+            kant[move] = true;
+        }
+        boolean A = true;
+        for (var side: kant) {
+            if (!side){A = false;}
+        }
+        if (A){ingekleurt = player;}
+    }
 
     
     public abstract boolean solidmove(int move);
-    public abstract boolean algedaan(int move);
+
+    public boolean algedaan(int move) {
+        return !kant[move];
+    }
 
     public abstract int[] getvakje2( int move);
 
