@@ -60,7 +60,8 @@ public abstract class figuur {
         line.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                Controller.domove(X, Y, position);
+                Move move = new Move(X, Y, position);
+                Controller.domove(move);
             }
         });
 

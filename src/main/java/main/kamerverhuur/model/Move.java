@@ -10,11 +10,9 @@ public class Move {
     public Player activeplayer;
     public game Game;
 
-    public Move(int x, int y, int move, Player activeplayer, game game) {
-        this.X = x;
-        this.Y = y;
+    public Move(int x, int y, int move) {
+        X = x;
+        Y = y;
         this.move = move;
-        this.activeplayer = activeplayer;
-        Game = game;
     }
 }

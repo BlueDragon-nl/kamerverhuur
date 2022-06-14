@@ -88,9 +88,10 @@ public class SpeelbordController {
         }
     }
 
-    public void domove(int X, int Y, int move){
+    public void domove(Move move){
        if (yourturn){
-           Game.domove(new Move(X, Y, move, player, Game));
+           move.activeplayer = player;
+           Game.domove(move);
        }
     }
 

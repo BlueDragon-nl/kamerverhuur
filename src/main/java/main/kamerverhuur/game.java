@@ -26,7 +26,8 @@ public class game {
     public void domove(Move move){
         turn++;
         int score = players.getActivePlayer().score(speelbord);
-        if (speelbord.domove(new Move(move.X,  move.Y,  move.move,  move.activeplayer, this))){
+        move.Game = this;
+        if (speelbord.domove(move)){
                 if (score == players.getActivePlayer().score(speelbord)){
                     getPlayers().nextturn();
                 }
