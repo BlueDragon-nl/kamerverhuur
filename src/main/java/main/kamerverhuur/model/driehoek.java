@@ -28,16 +28,6 @@ public class driehoek extends figuur {
         kant = new Boolean[]{false, false, false};
     }
 
-    @Override
-    public void teken(Pane pane, int Xfactoor, int Yfactoor, SpeelbordController Controller) {
-        Point2D[] Points = point2DS(Xfactoor, Yfactoor);
-
-        ArrayList<Line> lines = makelines(Points, Controller);
-        Polygon driehoek = newPolygon(Points);
-
-        pane.getChildren().addAll(lines);
-        pane.getChildren().add(driehoek);
-    }
 
 
     protected Point2D[] point2DS1(int Xfactoor, int Yfactoor){

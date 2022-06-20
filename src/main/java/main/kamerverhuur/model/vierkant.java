@@ -46,21 +46,7 @@ public class vierkant extends figuur {
         return lines;
     }
 
-<<<<<<< Updated upstream
-    public Point2D[] point2DS(int size){
-        Double pointX = point.getX() * size *2.0 + size+5;
-        Double pointY = point.getY() * size *2.0 + size+5;
 
-        return  new Point2D[]{
-                new Point2D(pointX - size, pointY - size),
-                new Point2D(pointX + size, pointY - size),
-
-                new Point2D(pointX + size, pointY + size),
-                new Point2D(pointX - size, pointY + size),
-        };
-    }
-=======
->>>>>>> Stashed changes
 
 
 
