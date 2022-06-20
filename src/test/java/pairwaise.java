@@ -6,23 +6,22 @@ import org.junit.jupiter.api.Test;
 public class pairwaise {
     @Test
     void pairwaisetesting(){
-        //game Game = new game();
-        //Game.newgame_test(figuurs.driehoek, 0, 5, true);
-        //Assertions.assertEquals(Game.speelbord.getZetten(), 0);
 
-        //Game.newgame_test(figuurs.driehoek, 5, 0, false);
-       // Assertions.assertEquals(Game.speelbord.getZetten(), 0);
+        Assertions.assertEquals(-1, zetten(figuurs.driehoek, 0, 5, true));
+        Assertions.assertEquals(-1, zetten(figuurs.driehoek, 5, 0, false));
 
-       // Game.newgame_test(figuurs.vierkant, 0, 0, false);
-       // Assertions.assertEquals(Game.speelbord.getZetten(), 0);
+        Assertions.assertEquals(-1, zetten(figuurs.vierkant, 0, 0, false));
+        Assertions.assertEquals(40, zetten(figuurs.vierkant, 5, 5, true));
 
-      //  Game.newgame_test(figuurs.vierkant, 5, 5, true);
-       // Assertions.assertEquals(Game.speelbord.getZetten(), 40);
-
-       // Game.newgame_test(figuurs.hexagon, 5, 5, false);
-        //Assertions.assertEquals(Game.speelbord.getZetten(), 160);
-
+        Assertions.assertEquals(-1, zetten(figuurs.hexagon, 0, 0, true));
+        Assertions.assertEquals(128, zetten(figuurs.hexagon, 5, 5, false));
 
     }
+    private int zetten(figuurs figuur, int X , int Y,  Boolean Sides){
+        game game = new game(X,Y);
+        game.newgame(figuur, Sides);
+        return game.getLEFTTurn();
+    }
+
 }
 

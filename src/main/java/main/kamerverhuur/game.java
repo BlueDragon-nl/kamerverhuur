@@ -16,6 +16,11 @@ public class game {
 
     public int turn;
 
+    public int getLEFTTurn() {
+        if (speelbord.getZetten() == -1){return -1;}
+        return (speelbord.getZetten() - turn - sides);
+    }
+
     public void domove(Move move){
         turn++;
         int score = players.getActivePlayer().score(speelbord);
@@ -30,6 +35,19 @@ public class game {
                 }
             }
     }
+    public Boolean CanDoMove(Move move, Player player){
+        if (speelbord.MoveCheck(move.X(), move.Y(), move.move)){
+           if (player == players.getActivePlayer()){
+               return true;
+           }
+        }
+        return false;
+    }
+
+    public game(int X,int Y){
+        this.speelbord = new speelbord(X, Y);
+    }
+
 
     public Player getwinnar(){
         Player winnar = new Player("", null);
@@ -41,16 +59,20 @@ public class game {
         }
         return winnar;
     }
-
-    public game(int X,int Y){
+    
+    public void newgame(figuurs figuur, int X, int Y, boolean Sides) {
         this.speelbord = new speelbord(X, Y);
+        newgame(figuur,  Sides);
     }
-
     public void newgame(figuurs figuur, boolean Sides) {
         figuur[][] speelveld;
         int X = this.speelbord.getMax_X();
         int Y = this.speelbord.getMax_Y();
         this.sides = 0;
+        if (X == 0 || Y == 0){
+            this.speelbord.setSpeelbord(new figuur[][]{});
+            return;
+        }
 
         switch (figuur){
             case driehoek:
@@ -119,6 +141,7 @@ public class game {
 
 
     private void setborder_driehoek(int x,int y, figuur[][] speelbord){
+
         for (int X=0; X< x ;X++){
             speelbord[X][0].move(0,null);
             speelbord[X][y-1].move(0,null);
@@ -132,7 +155,9 @@ public class game {
             }
 
         }
-        speelbord[0][y-1].move(1,null);
+            speelbord[0][y-1].move(1,null);
+
+
     }
     private void setborder_Hexagon(int x,int y, figuur[][] speelbord){
         for (int X=0; X< x ;X++){
@@ -168,6 +193,7 @@ public class game {
 
         }
     }
+
 
 
 }

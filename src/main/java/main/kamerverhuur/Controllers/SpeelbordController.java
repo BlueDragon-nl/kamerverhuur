@@ -89,7 +89,7 @@ public class SpeelbordController {
         }
     }
     private void setTurnsleft(){
-        turnsleft.setText("" + (Game.speelbord.getZetten() - Game.turn - Game.sides));
+        turnsleft.setText("" + Game.getLEFTTurn());
     }
     private void setSpeelbord(){
         speelbord.getChildren().clear();

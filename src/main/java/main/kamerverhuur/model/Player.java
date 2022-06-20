@@ -31,7 +31,7 @@ public class Player {
     }
 
     public void update(game Game){
-        Game.speelbord.getcontroller(this).yourturn(isturn);
-
+       var controller = Game.speelbord.getcontroller(this);
+        if (controller != null){controller.yourturn(isturn);}
     }
 }

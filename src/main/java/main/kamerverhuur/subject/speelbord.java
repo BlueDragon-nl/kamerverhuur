@@ -19,7 +19,7 @@ public class speelbord extends subject<SpeelbordController> {
 
     public void setSpeelbord(figuur[][] speelbord) {
         this.speelbord = speelbord;
-        if (speelbord[0][0].getClass().toString().equals("class main.kamerverhuur.model.driehoek")){
+        if (  speelbord.getClass().toString().equals("class [[Lmain.kamerverhuur.model.driehoek;")){
             max_Y *= 2;
         }
         update();
@@ -99,6 +99,7 @@ public class speelbord extends subject<SpeelbordController> {
     }
 
     public int getZetten(){
+        if (speelbord.length == 0){return -1;}
         return speelbord[0][0].getzetten(max_X, max_Y);
     }
 
