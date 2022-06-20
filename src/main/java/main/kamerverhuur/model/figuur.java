@@ -15,13 +15,11 @@ public abstract class figuur {
     protected Boolean[] kant;
 
 
-    public int X;
-    public int Y;
+    public Point2D point;
     public game Game;
 
     public figuur(int x, int y, game game) {
-        X = x;
-        Y = y;
+        point = new Point2D(x, y);
         Game = game;
         ingekleurt = null;
     }
