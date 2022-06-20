@@ -1,14 +1,14 @@
 package main.kamerverhuur.model;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.game;
+
+import java.util.ArrayList;
 
 public abstract class figuur {
     protected Player ingekleurt;
@@ -30,7 +30,7 @@ public abstract class figuur {
         return ingekleurt;
     }
 
-    public Polygon newPolygon(Point2D[] Points){
+    public Polygon newPolygon3(Point2D[] Points){
         Polygon vierkant = new Polygon();
         for (var point:Points) {
             vierkant.getPoints().add(point.getX());
@@ -58,8 +58,22 @@ public abstract class figuur {
         return line;
     }
 
+    protected abstract Point2D[] point2DS1(int Xfactoor, int Yfactoor);
+    protected abstract ArrayList<Line> makelines2(Point2D[] Points, SpeelbordController Controller);
 
-    public abstract void teken(Pane pane, int Xfactoor, int Yfactoor, SpeelbordController Controller);
+    public void teken(Pane pane, int Xfactoor, int Yfactoor, SpeelbordController Controller){
+        Point2D[] Points = point2DS1(Xfactoor, Yfactoor);
+
+        ArrayList<Line> lines = makelines2(Points, Controller);
+        Polygon polygon = newPolygon3(Points);
+
+        additem4(pane, lines, polygon);
+    }
+
+    public void additem4(Pane pane, ArrayList<Line> lines, Polygon polygon){
+        pane.getChildren().addAll(lines);
+        pane.getChildren().add(polygon);
+    }
 
     public void move(int move, Player player) {
         if (-1 < move && move < kant.length){

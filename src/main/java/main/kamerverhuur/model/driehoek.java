@@ -29,6 +29,7 @@ public class driehoek extends figuur {
     }
 
     @Override
+<<<<<<< Updated upstream
     public void teken(Pane pane, int Xfactoor, int Yfactoor, SpeelbordController Controller) {
         Point2D[] Points = point2DS(Xfactoor, Yfactoor);
 
@@ -42,6 +43,12 @@ public class driehoek extends figuur {
     private Point2D[] point2DS(int Xfactoor, int Yfactoor){
         Double pointX = X * Xfactoor *2.0 + Xfactoor+5;
         Double pointY = Y/2 * Yfactoor *2.0 + Yfactoor+5;
+=======
+    protected Point2D[] point2DS1(int Xfactoor, int Yfactoor){
+        int Y = (int) point.getY()/2;
+        Double pointX = point.getX() * Xfactoor *2.0 + Xfactoor+5;
+        Double pointY =  Y * Yfactoor *2.0 + Yfactoor+5;
+>>>>>>> Stashed changes
 
         Point2D[] Points;
         if (!side){
@@ -58,8 +65,8 @@ public class driehoek extends figuur {
         }
         return Points;
     }
-
-    private ArrayList<Line> makelines(Point2D[] Points, SpeelbordController Controller){
+    @Override
+    protected ArrayList<Line> makelines2(Point2D[] Points, SpeelbordController Controller){
         ArrayList<Line> lines = new ArrayList<>();
 
         for (int i = 0; i < Points.length-1; i++ ) {

@@ -19,22 +19,24 @@ public class hexagon extends figuur {
         kant = new Boolean[]{false, false, false, false, false, false, false, false};
     }
 
-
     @Override
-    public void teken(Pane pane, int Xfactoor, int Yfactoor, SpeelbordController Controller) {
-        Point2D[] Points = point2DS(Xfactoor, Yfactoor);
+    public Polygon newPolygon3(Point2D[] Points){
+        Polygon vierkant = new Polygon();
+        for (var point:Points) {
+            vierkant.getPoints().add(point.getX());
+            vierkant.getPoints().add(point.getY());
+        }
 
-        ArrayList<Line> lines = lines(Points, Controller);
-        Polygon hexagon = newPolygon(Points);
-
-        pane.getChildren().addAll(lines);
-        pane.getChildren().add(hexagon);
-
+        if (ingekleurt != null){
+            vierkant.setFill(ingekleurt.color);
+        }else {
+            vierkant.setFill(Color.BLUE);
+        }
+        return vierkant;
     }
 
-
-
-    public ArrayList<Line> lines(Point2D[] Points, SpeelbordController Controller){
+    @Override
+    public ArrayList<Line> makelines2(Point2D[] Points, SpeelbordController Controller){
         ArrayList<Line> lines = new ArrayList<>();
         for (int i = 0; i < Points.length-1; i++ ) {
             lijn lijn = new lijn(newline(Points[i], Points[i+1]), Controller);
@@ -48,9 +50,16 @@ public class hexagon extends figuur {
         return lines;
     }
 
+<<<<<<< Updated upstream
     public Point2D[] point2DS(int Xfactoor, int Yfactoor){
         Double pointX = X * Xfactoor *2.0 + Xfactoor+5;
         Double pointY = Y * Yfactoor *2.0 + Yfactoor+5;
+=======
+    @Override
+    protected Point2D[] point2DS1(int Xfactoor, int Yfactoor){
+        Double pointX = point.getX() * Xfactoor *2.0 + Xfactoor+5;
+        Double pointY = point.getY() * Yfactoor *2.0 + Yfactoor+5;
+>>>>>>> Stashed changes
         int Xhalf = Xfactoor/2;
         int Yhalf = Yfactoor/2;
 

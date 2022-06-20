@@ -18,22 +18,22 @@ public class vierkant extends figuur {
         kant = new Boolean[]{false, false, false, false};
     }
 
+    @Override
+    protected Point2D[] point2DS1(int Xfactoor, int Yfactoor) {
+        Double pointX = point.getX() * Xfactoor *2.0 + Xfactoor+5;
+        Double pointY = point.getY() * Yfactoor *2.0 + Yfactoor+5;
 
+        return  new Point2D[]{
+                new Point2D(pointX - Xfactoor, pointY - Yfactoor),
+                new Point2D(pointX + Xfactoor, pointY - Yfactoor),
+
+                new Point2D(pointX + Xfactoor, pointY + Yfactoor),
+                new Point2D(pointX - Xfactoor, pointY + Yfactoor),
+        };
+    }
 
     @Override
-    public void teken(Pane pane, int factoor, int Yfactoor, SpeelbordController Controller) {
-        Point2D[] Point = point2DS(factoor);
-
-        ArrayList<Line> lines = lines(Point, Controller);
-        Polygon vierkant =  newPolygon(Point);
-
-        pane.getChildren().addAll(lines);
-        pane.getChildren().add(vierkant);
-
-        }
-
-
-    public ArrayList<Line> lines(Point2D[] Points, SpeelbordController Controller){
+    protected ArrayList<Line> makelines2(Point2D[] Points, SpeelbordController Controller){
         ArrayList<Line> lines = new ArrayList<>();
         for (int i = 0; i < Points.length-1; i++ ) {
             lijn lijn = new lijn(newline(Points[i], Points[i+1]), Controller);
@@ -46,6 +46,7 @@ public class vierkant extends figuur {
         return lines;
     }
 
+<<<<<<< Updated upstream
     public Point2D[] point2DS(int size){
         Double pointX = X * size *2.0 + size+5;
         Double pointY = Y * size *2.0 + size+5;
@@ -58,6 +59,8 @@ public class vierkant extends figuur {
                 new Point2D(pointX - size, pointY + size),
         };
     }
+=======
+>>>>>>> Stashed changes
 
 
 
