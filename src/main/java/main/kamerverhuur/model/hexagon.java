@@ -120,7 +120,7 @@ public class hexagon extends figuur {
 
     @Override
     public int getzetten(int x, int y){
-       return x* y* 6 + (x+y);
+       return x* y* 4 + ((x+y) * 3) -2;
     }
 
 }

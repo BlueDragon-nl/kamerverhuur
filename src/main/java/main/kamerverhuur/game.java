@@ -8,6 +8,7 @@ public class game {
     public speelbord speelbord;
 
     private activePlayer players = new activePlayer(this);
+    public int sides;
 
     public activePlayer getPlayers() {
         return players;
@@ -49,21 +50,28 @@ public class game {
         figuur[][] speelveld;
         int X = this.speelbord.getMax_X();
         int Y = this.speelbord.getMax_Y();
+        this.sides = 0;
 
         switch (figuur){
             case driehoek:
                 speelveld = speelvelddriehoek(X, Y*2);
-                if (Sides){setborder_driehoek(X, Y, speelveld);}
+                if (Sides){setborder_driehoek(X, Y*2, speelveld);
+                    sides = (X + Y) *2;
+                }
                 break;
 
             case hexagon:
                 speelveld = speelveldHexagon(X, Y);
-                if (Sides){setborder_Hexagon(X, Y, speelveld);}
+                if (Sides){setborder_Hexagon(X, Y, speelveld);
+                    sides = ((X + Y) * 3 -2) * 2 ;
+                }
                 break;
 
             default: speelveld = speelveldvierkant(X,Y);
 
-                if (Sides){setborder_vierkant(X, Y, speelveld);}
+                if (Sides){setborder_vierkant(X, Y, speelveld);
+                    sides = (X + Y) *2;
+                }
                 break;
         }
 
