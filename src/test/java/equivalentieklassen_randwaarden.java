@@ -6,14 +6,14 @@ public class equivalentieklassen_randwaarden {
     @Test
     void randvoorwaarden(){
         SpeelbordController s = new SpeelbordController();
-        Assertions.assertEquals(s.factor(0), -1);
-        Assertions.assertEquals(s.factor(1), 500);
-        Assertions.assertEquals(s.factor(5), 100);
-        Assertions.assertEquals(s.factor(9), 55);
-        Assertions.assertEquals(s.factor(10), 75);
-        Assertions.assertEquals(s.factor(11), 68);
-        Assertions.assertEquals(s.factor(19), 39);
-        Assertions.assertEquals(s.factor(20), 50);
-        Assertions.assertEquals(s.factor(25), 40);
+        Assertions.assertEquals(s.temporyfield (0), -1);
+        Assertions.assertEquals(s.temporyfield(1), 500);
+
+        Assertions.assertEquals(s.temporyfield(49), 10);
+        Assertions.assertEquals(s.temporyfield(50), 20);
+
+        Assertions.assertEquals(s.temporyfield(99), 10);
+        Assertions.assertEquals(s.temporyfield(100), 20);
+
     }
 }

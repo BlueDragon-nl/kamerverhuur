@@ -44,10 +44,15 @@ public class SpeelbordController {
 
     public int factor(int aantalvakjes){
         if (aantalvakjes < 1){return -1;}
-        else if (0 < aantalvakjes && aantalvakjes < 50){return 500;}
-        else if (50 <= aantalvakjes && aantalvakjes < 100){return 1000;}
-        else {return 20000;}
+        else if (aantalvakjes < 50){return 500;}
+        else if (aantalvakjes < 100){return 1000;}
+        else {return 2000;}
     }
+    public int temporyfield(int aantalvakjes){
+        if (factor(aantalvakjes) == -1){return -1;}
+        return factor(aantalvakjes)/aantalvakjes;
+    }
+
     public int temporyfieldX(){
         return factor(Game.speelbord.getMax_X())/Game.speelbord.getMax_X();
     }
