@@ -1,29 +1,24 @@
 package main.kamerverhuur.model;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
 import main.kamerverhuur.Controllers.SpeelbordController;
-import main.kamerverhuur.game;
+import main.kamerverhuur.Game;
 
 import java.util.ArrayList;
 
-public class driehoek extends figuur {
+public class Driehoek extends Figuur {
 
     public boolean side = false;
 
-    public driehoek(int x, int y, game Game) {
-        super(x,y,Game);
+    public Driehoek(int x, int y, Game game) {
+        super(x,y,game);
         this.side = false;
         kant = new Boolean[]{false, false, false};
     }
 
-    public driehoek(boolean side, int x, int y, game Game) {
-        super(x,y,Game);
+    public Driehoek(boolean side, int x, int y, Game game) {
+        super(x,y,game);
         this.side = side;
         kant = new Boolean[]{false, false, false};
     }
@@ -51,21 +46,6 @@ public class driehoek extends figuur {
 
         }
         return Points;
-    }
-    @Override
-    protected ArrayList<Line> makelines2(Point2D[] Points, SpeelbordController Controller){
-        ArrayList<Line> lines = new ArrayList<>();
-
-        for (int i = 0; i < Points.length-1; i++ ) {
-            lijn lijn = new lijn(newline(Points[i], Points[i+1]), Controller);
-            lijn.pres(new Move(new Point2D(point.getX(),point.getY()), i), !kant[i]);
-            lines.add(lijn.getLine());
-        }
-
-        lijn lijn = new lijn(newline(Points[2], Points[0]), Controller);
-        lijn.pres(new Move(new Point2D(point.getX(),point.getY()), 2), !kant[2]);
-        lines.add(lijn.getLine());
-        return lines;
     }
 
 

@@ -6,11 +6,11 @@ import main.kamerverhuur.model.Player;
 import java.util.ArrayList;
 
 
-public class activePlayer extends subject<Player> {
+public class ActivePlayer extends Subject<Player> {
     private Player activePlayer;
-    private main.kamerverhuur.game game;
+    private main.kamerverhuur.Game game;
 
-    public activePlayer(main.kamerverhuur.game game) {
+    public ActivePlayer(main.kamerverhuur.Game game) {
         this.game = game;
     }
 

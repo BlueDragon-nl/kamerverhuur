@@ -1,29 +1,30 @@
-package main.kamerverhuur.subject;
+package main.kamerverhuur.subject.Speelbords;
 
 import main.kamerverhuur.Controllers.SpeelbordController;
 import main.kamerverhuur.model.Player;
-import main.kamerverhuur.model.figuur;
+import main.kamerverhuur.model.Figuur;
 import main.kamerverhuur.model.Move;
+import main.kamerverhuur.subject.Subject;
 
-public class speelbord extends subject<SpeelbordController> {
+public class Speelbord extends Subject<SpeelbordController> {
 
-    private figuur[][] speelbord;
+    private Figuur[][] speelbord;
     private int max_X, max_Y;
+    private int sides;
 
-    public speelbord(int max_X, int max_Y){
+    public Speelbord(int max_X, int max_Y, Figuur[][] speelbord, int sides){
         this.max_X = max_X;
         this.max_Y = max_Y;
-    }
-
-
-
-    public void setSpeelbord(figuur[][] speelbord) {
         this.speelbord = speelbord;
-        if (  speelbord.getClass().toString().equals("class [[Lmain.kamerverhuur.model.driehoek;")){
-            max_Y *= 2;
+        this.sides = sides;
+        if (speelbord != null){
+            if (speelbord.getClass().toString().equals("class [[Lmain.kamerverhuur.model.driehoek;")){
+                max_Y *= 2;
+            }
         }
         update();
     }
+
 
 
 
@@ -66,7 +67,7 @@ public class speelbord extends subject<SpeelbordController> {
     }
 
 
-    public figuur getfiguur(int X, int y){
+    public Figuur getfiguur(int X, int y){
         return speelbord[X][y];
     }
 
@@ -99,8 +100,8 @@ public class speelbord extends subject<SpeelbordController> {
     }
 
     public int getZetten(){
-        if (speelbord.length == 0){return -1;}
-        return speelbord[0][0].getzetten(max_X, max_Y);
+        if (speelbord == null){return -1;}
+        return speelbord[0][0].getzetten(max_X, max_Y) - sides;
     }
 
 

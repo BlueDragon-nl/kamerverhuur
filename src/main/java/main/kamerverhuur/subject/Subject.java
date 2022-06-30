@@ -3,7 +3,7 @@ package main.kamerverhuur.subject;
 import java.util.ArrayList;
 
 
-public abstract class subject<T> {
+public abstract class Subject<T> {
     protected ArrayList<T> ingeschrijven = new ArrayList<>();
 
     public void Inschrijven(T item){

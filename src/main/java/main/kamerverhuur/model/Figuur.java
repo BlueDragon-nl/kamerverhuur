@@ -6,21 +6,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import main.kamerverhuur.Controllers.SpeelbordController;
-import main.kamerverhuur.game;
+import main.kamerverhuur.Game;
 
 import java.util.ArrayList;
 
-public abstract class figuur {
+public abstract class Figuur {
     protected Player ingekleurt;
     protected Boolean[] kant;
 
 
     public Point2D point;
-    public game Game;
+    public Game game;
 
-    public figuur(int x, int y, game game) {
+    public Figuur(int x, int y, Game game) {
         point = new Point2D(x, y);
-        Game = game;
+        this.game = game;
         ingekleurt = null;
     }
     
@@ -57,7 +57,16 @@ public abstract class figuur {
     }
 
     protected abstract Point2D[] point2DS1(int Xfactoor, int Yfactoor);
-    protected abstract ArrayList<Line> makelines2(Point2D[] Points, SpeelbordController Controller);
+    protected ArrayList<Line> makelines2(Point2D[] Points, SpeelbordController Controller){
+        ArrayList<Line> lines = new ArrayList<>();
+
+        for (int i = 0; i < Points.length; i++ ) {
+            Lijn lijn = new Lijn(newline(Points[i], Points[ (i + 1) % Points.length]), Controller);
+            lijn.pres(new Move(new Point2D(point.getX(),point.getY()), i), !kant[i]);
+            lines.add(lijn.getLine());
+        }
+        return lines;
+    }
 
     public void teken(Pane pane, int Xfactoor, int Yfactoor, SpeelbordController Controller){
         Point2D[] Points = point2DS1(Xfactoor, Yfactoor);

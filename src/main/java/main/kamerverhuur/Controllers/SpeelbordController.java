@@ -5,7 +5,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import main.kamerverhuur.game;
+import main.kamerverhuur.Game;
 import main.kamerverhuur.model.Move;
 import main.kamerverhuur.model.Player;
 
@@ -34,7 +34,7 @@ public class SpeelbordController {
     private Text turnsleft;
 
 
-    private game Game;
+    private Game game;
     private Player player;
     private boolean yourturn = false;
 
@@ -54,15 +54,15 @@ public class SpeelbordController {
     }
 
     public int temporyfieldX(){
-        return factor(Game.speelbord.getMax_X())/Game.speelbord.getMax_X();
+        return factor(game.speelbord.getMax_X())/game.speelbord.getMax_X();
     }
     public int temporyfieldY(){
-        return factor(Game.speelbord.getMax_Y())/Game.speelbord.getMax_Y();
+        return factor(game.speelbord.getMax_Y())/game.speelbord.getMax_Y();
     }
 
 
-    public void set(game Game, Player player){
-        this.Game = Game;
+    public void set(Game Game, Player player){
+        this.game = Game;
         this.player = player;
         Game.speelbord.Inschrijven(this);
         Game.getPlayers().Inschrijven(player);
@@ -83,20 +83,20 @@ public class SpeelbordController {
     private void setscoreboard(){
         name.getChildren().clear();
         punten.getChildren().clear();
-        for (Player player :Game.getPlayers().Scroreboard()) {
+        for (Player player :game.getPlayers().Scroreboard()) {
             name.getChildren().add(new Text(player.name));
-            punten.getChildren().add(new Text("" +player.score(Game.speelbord)));
+            punten.getChildren().add(new Text("" +player.score(game.speelbord)));
         }
     }
     private void setTurnsleft(){
-        turnsleft.setText("" + Game.getLEFTTurn());
+        turnsleft.setText("" + game.getLEFTTurn());
     }
     private void setSpeelbord(){
         speelbord.getChildren().clear();
 
-        for (int x=0; x< Game.speelbord.getMax_X(); x++){
-            for (int y=0; y < Game.speelbord.getMax_Y(); y++){
-                Game.speelbord.getfiguur(x,y).teken(speelbord, temporyfieldX(), temporyfieldY(), this);
+        for (int x=0; x< game.speelbord.getMax_X(); x++){
+            for (int y=0; y < game.speelbord.getMax_Y(); y++){
+                game.speelbord.getfiguur(x,y).teken(speelbord, temporyfieldX(), temporyfieldY(), this);
             }
         }
     }
@@ -104,7 +104,7 @@ public class SpeelbordController {
     public void domove(Move move){
        if (yourturn){
            move.activeplayer = player;
-           Game.domove(move);
+           game.domove(move);
        }
     }
 

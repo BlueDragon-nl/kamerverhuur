@@ -1,27 +1,22 @@
 package main.kamerverhuur.model;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
 import main.kamerverhuur.Controllers.SpeelbordController;
-import main.kamerverhuur.game;
+import main.kamerverhuur.Game;
 
 import java.util.ArrayList;
 
-public class vierkant extends figuur {
-    public vierkant(int x, int y, game Game) {
-        super(x,y,Game);
+public class Vierkant extends Figuur {
+    public Vierkant(int x, int y, Game game) {
+        super(x,y,game);
         kant = new Boolean[]{false, false, false, false};
     }
 
     @Override
     protected Point2D[] point2DS1(int Xfactoor, int Yfactoor) {
-        Double pointX = point.getX() * Xfactoor *2.0 + Xfactoor+5;
-        Double pointY = point.getY() * Yfactoor *2.0 + Yfactoor+5;
+        Double pointX = point.getX() * Xfactoor *2.0 + Xfactoor + 5;
+        Double pointY = point.getY() * Yfactoor *2.0 + Yfactoor + 5;
 
         return  new Point2D[]{
                 new Point2D(pointX - Xfactoor, pointY - Yfactoor),
@@ -31,25 +26,6 @@ public class vierkant extends figuur {
                 new Point2D(pointX - Xfactoor, pointY + Yfactoor),
         };
     }
-
-    @Override
-    protected ArrayList<Line> makelines2(Point2D[] Points, SpeelbordController Controller){
-        ArrayList<Line> lines = new ArrayList<>();
-        for (int i = 0; i < Points.length-1; i++ ) {
-            lijn lijn = new lijn(newline(Points[i], Points[i+1]), Controller);
-            lijn.pres(new Move(new Point2D(point.getX(),point.getY()), i), !kant[i]);
-            lines.add(lijn.getLine());
-        }
-        lijn lijn = new lijn(newline(Points[3], Points[0]), Controller);
-        lijn.pres(new Move(new Point2D(point.getX(),point.getY()), 3), !kant[3]);
-        lines.add(lijn.getLine());
-        return lines;
-    }
-
-
-
-
-
 
 
     @Override

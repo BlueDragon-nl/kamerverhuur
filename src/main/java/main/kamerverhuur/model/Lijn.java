@@ -1,16 +1,15 @@
 package main.kamerverhuur.model;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import main.kamerverhuur.Controllers.SpeelbordController;
 
-public class lijn {
+public class Lijn {
     private Line line;
     private SpeelbordController Controller;
 
-    public lijn(Line line, SpeelbordController controller) {
+    public Lijn(Line line, SpeelbordController controller) {
         this.line = line;
         Controller = controller;
     }

@@ -1,18 +1,21 @@
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import main.kamerverhuur.Game;
+
+import main.kamerverhuur.subject.builder.SpeelbordVierkant;
 import main.kamerverhuur.model.Move;
 import main.kamerverhuur.model.Player;
-import main.kamerverhuur.model.figuurs;
+
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;
-import main.kamerverhuur.game;
 
-public class samengestelde_decision {
+public class SamengesteldeDecision {
     @Test
     void Conditions(){
-        game game = new game(0,0);
-        game.newgame(figuurs.driehoek, 5, 5, true);
+        Game game = new Game();
+        var bord = new SpeelbordVierkant();
+        game.newGame(bord.newSpeelbord (5, 5, game, false));
 
         Player red =  new Player("red", Color.RED);
         game.getPlayers().Inschrijven(red);
@@ -36,6 +39,5 @@ public class samengestelde_decision {
        Assertions.assertFalse(game.CanDoMove(foutmove, blue));
 
         Assertions.assertTrue(game.CanDoMove(newmove, blue));
-
     }
 }

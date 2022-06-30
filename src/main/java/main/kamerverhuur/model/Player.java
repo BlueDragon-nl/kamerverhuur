@@ -1,8 +1,8 @@
 package main.kamerverhuur.model;
 
 import javafx.scene.paint.Color;
-import main.kamerverhuur.game;
-import main.kamerverhuur.subject.speelbord;
+import main.kamerverhuur.Game;
+import main.kamerverhuur.subject.Speelbords.Speelbord;
 
 
 public class Player {
@@ -17,7 +17,7 @@ public class Player {
         isturn = false;
     }
 
-    public int score(speelbord speelbord){
+    public int score(Speelbord speelbord){
         int count = 0;
 
         for (int x=0; x< speelbord.getMax_X(); x++){
@@ -30,8 +30,8 @@ public class Player {
         return count;
     }
 
-    public void update(game Game){
-       var controller = Game.speelbord.getcontroller(this);
+    public void update(Game game){
+       var controller = game.speelbord.getcontroller(this);
         if (controller != null){controller.yourturn(isturn);}
     }
 }

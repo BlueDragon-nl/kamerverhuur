@@ -1,21 +1,18 @@
 package main.kamerverhuur.model;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import main.kamerverhuur.Controllers.SpeelbordController;
-import main.kamerverhuur.game;
+import main.kamerverhuur.Game;
 
 import java.util.ArrayList;
 
-public class hexagon extends figuur {
+public class Hexagon extends Figuur {
 
-    public hexagon(int x, int y, game Game) {
-        super(x,y,Game);
+    public Hexagon(int x, int y, Game game) {
+        super(x,y,game);
         kant = new Boolean[]{false, false, false, false, false, false, false, false};
     }
 
@@ -35,20 +32,6 @@ public class hexagon extends figuur {
         return vierkant;
     }
 
-    @Override
-    public ArrayList<Line> makelines2(Point2D[] Points, SpeelbordController Controller){
-        ArrayList<Line> lines = new ArrayList<>();
-        for (int i = 0; i < Points.length-1; i++ ) {
-            lijn lijn = new lijn(newline(Points[i], Points[i+1]), Controller);
-            lijn.pres(new Move(new Point2D(point.getX(),point.getY()), i), !kant[i]);
-            lines.add(lijn.getLine());
-        }
-        lijn lijn = new lijn((newline(Points[7], Points[0])), Controller);
-        lijn.pres(new Move(new Point2D(point.getX(),point.getY()), 7), !kant[7]);
-        lines.add(lijn.getLine());
-
-        return lines;
-    }
 
 
     @Override
